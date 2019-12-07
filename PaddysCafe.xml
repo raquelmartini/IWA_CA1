@@ -13,6 +13,10 @@
       <item>FRIED PEPPER JACK CHEESE</item>
       <price>6.50</price>
     </entree>
+    <entree vegetarian="true">
+      <item>SPICY DEEP-FRIED MUSHROOMS</item>
+      <price>4.50</price>
+    </entree>
   </section>
   <section name="YOY'S BURGERS">
     <entree>
@@ -43,7 +47,7 @@
       <item>GRILLED SHRIMP BURGER</item>
       <price>15.95</price>
     </entree>
-    <entree>
+    <entree vegetarian="true">
       <item>SPICY FRIES</item>
       <price>4.55</price>
     </entree>
@@ -53,7 +57,7 @@
       <item>CLASSIC FRIES</item>
       <price>3.95</price>
     </entree>
-    <entree>
+    <entree vegetarian="true">
       <item>SWEET POTATO WAFFLE FRIES</item>
       <price>4.95</price>
     </entree>
@@ -69,6 +73,14 @@
   <section name="CLASSIC SHAKES">
     <entree>
       <item>CHOCOLATE, VANILLA OR STRAWBERRY</item>
+      <price>5.95</price>
+    </entree>
+     <entree>
+      <item>LOW FAT - CHOCOLATE, VANILLA OR STRAWBERRY</item>
+      <price>5.95</price>
+    </entree>
+     <entree>
+      <item vegetarian="true">VEGAN - CHOCOLATE, VANILLA OR STRAWBERRY</item>
       <price>5.95</price>
     </entree>
   </section>
@@ -88,10 +100,6 @@
     <entree vegetarian="true">
       <item>BANANAS FOSTER</item>
       <price>8.79</price>
-    </entree>
-    <entree>
-      <item>YELLOW FLAKE</item>
-      <price>2.99</price>
     </entree>
   </section>
 </cafemenu>

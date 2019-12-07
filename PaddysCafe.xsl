@@ -7,7 +7,7 @@
                         <tr style="color: #fff; background: #2c3e50;">
                             <th>Select</th>
                             <th>Item</th>
-                            <th>Price</th>
+                            <th>Price per Item (€)</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -265,14 +265,14 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="item" placeholder="Item" pattern="[A-Za-z]{1}[A-Za-z0-9\s]{0,64}" title="A valid string from 1 - 64 letters starting with a letter" required>
+						<input class="form-control" type="text" name="item" placeholder="Item" pattern="[A-Za-z]{1}[A-Za-z0-9\s]{0,64}" title="A valid dish name with at least one character, starting with a letter" required>
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="price" placeholder="Price" pattern="(\d{1,4}(\.\d{1,2})*)" title="A valid numeric value with or without a decimal point" required>
+						<input class="form-control" type="text" name="price" placeholder="Price" pattern="(\d{1,4}(\.\d{1,2})*)" title="A valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values" required>
 					</div>
-					<button type="submit" class="btn btn-primary btn-block" href="#">Add New Dish</button>
+					<button style="margin-bottom: 5px;" type="submit" class="btn btn-primary btn-block" href="#">Add New Dish</button>
 				</form>
-                    <button id="delete" class="btn btn-block btn-danger">Remove An Existing Dish</button>
+                    <button style="margin-bottom: 5px;" id="delete" class="btn btn-block btn-danger">Remove An Existing Dish</button>
                     <p class="text-muted">To remove a dish, click the required row first</p>
                 <form>
                     <div class="input-group">
@@ -285,7 +285,7 @@
                                 <input type="checkbox" id="showVeg" aria-label="Checkbox for following text input">
                             </div>
                         </div>
-                        <input class="btn btn-block btn-secondary" type="button" name="btnCalcBill" value="Calculate My Bill" id="calcBill">
+                        <input style="margin-top: 5px;" class="btn btn-block btn-secondary" type="button" name="btnCalcBill" value="Calculate My Bill" id="calcBill">
                     </div>
                     
                 </form>
