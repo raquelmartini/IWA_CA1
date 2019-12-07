@@ -56,6 +56,7 @@ router.get('/get/html', function(req, res) {
 
 });
 
+
 // POST request to add to JSON & XML files
 router.post('/post/json', function(req, res) {
 
@@ -69,6 +70,9 @@ router.post('/post/json', function(req, res) {
     xmlFileToJs('PaddysCafe.xml', function(err, result) {
       if (err) throw (err);
       //This is where you pass on information from the form inside index.html in a form of JSON and navigate through our JSON (XML) file to create a new entree object
+
+      sanitizedObj.item = sanitizedObj.item.toUppreCase();
+      
       result.cafemenu.section[sanitizedObj.sec_n].entree.push({'item': sanitizedObj.item, 'price': sanitizedObj.price}); //If your XML elements are differet, this is where you have to change to your own element names
       //Converting back to our original XML file from JSON
       jsToXmlFile('PaddysCafe.xml', result, function(err) {
@@ -76,6 +80,7 @@ router.post('/post/json', function(req, res) {
       })
     })
   };
+
 
 /*
 router.post('/post/json', function(req, res) {
@@ -94,14 +99,7 @@ router.post('/post/json', function(req, res) {
       })
     })
   };
-
 */
-
-
-
-
-
-
 
 
   // Call appendJSON function and pass in body of the current POST request
