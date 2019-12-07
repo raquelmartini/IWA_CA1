@@ -56,6 +56,11 @@ router.get('/get/html', function(req, res) {
 
 });
 
+function isNumeric(str)
+{
+  let numRegex = '/^\d+$/';
+  return numRegex.test(str);
+}
 
 // POST request to add to JSON & XML files
 router.post('/post/json', function(req, res) {
@@ -73,6 +78,18 @@ router.post('/post/json', function(req, res) {
 
       //RMR - added server-side sanitization of title and price
       sanitizedObj.item = sanitizedObj.item.toUpperCase();
+
+      if(isNumeric(sanitizedObj.item))
+      {
+        alert("Title must not be a number!");
+      }
+      if(!isNumeric(sanitizedObj.price))
+      {
+        alert("Price must be a number!");
+      }
+
+
+
 
       result.cafemenu.section[sanitizedObj.sec_n].entree.push({'item': sanitizedObj.item, 'price': sanitizedObj.price}); //If your XML elements are differet, this is where you have to change to your own element names
       //Converting back to our original XML file from JSON
