@@ -4,7 +4,7 @@
                 <table id="menuTable" class="indent">
                     <thead>
                         <tr>
-                            <th colspan="3">Paddy's Cafe Menu</th>
+                            <th colspan="3">YOY'S BURGERS</th>
                         </tr>
                         <tr>
                             <th>Select</th>
@@ -20,20 +20,20 @@
                                 </td>
                             </tr>
                             <xsl:for-each select="entree">
-                            <tr id="{position()}">
-                                <xsl:attribute name="vegetarian">
-                                    <xsl:value-of select="boolean(./@vegetarian)" />
-                                </xsl:attribute>
-                                <td align="center">
-                                    <input name="item0" type="checkbox" />
-                                </td>
-                                <td>
-                                    <xsl:value-of select="item" />
-                                </td>
-                                <td align="right">
-                                    <xsl:value-of select="price" />
-                                </td>
-                            </tr>
+                                <tr>
+                                    <xsl:attribute name="vegetarian">
+                                        <xsl:value-of select="boolean(./@vegetarian)" />
+                                    </xsl:attribute>
+                                    <td align="center">
+                                        <input name="item0" type="checkbox" />
+                                    </td>
+                                    <td>
+                                        <xsl:value-of select="item" />
+                                    </td>
+                                    <td align="right">
+                                        <xsl:value-of select="price" />
+                                    </td>
+                                </tr>
                             </xsl:for-each>
                         </xsl:for-each>
                     </tbody>

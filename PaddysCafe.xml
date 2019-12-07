@@ -1,63 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cafemenu>
-  <section name="Side Dishes">
+  <section name="SNACK ATTACK">
     <entree vegetarian="true">
-      <item>Potato Salad</item>
+      <item>ARTICHOKE SPINACH DIP</item>
+      <price>7.95</price>
+    </entree>
+    <entree>
+      <item>LOADED NACHOS</item>
+      <price>8.95</price>
+    </entree>
+    <entree>
+      <item>FRIED PEPPER JACK CHEESE</item>
+      <price>6.50</price>
+    </entree>
+  </section>
+  <section name="YOY'S BURGERS">
+    <entree>
+      <item>THE YOY'S BURGER</item>
+      <price>11.95</price>
+    </entree>
+    <entree>
+      <item>RANCH HAND</item>
+      <price>10.60</price>
+    </entree>
+     <entree>
+      <item>WILD BILL'S BUFFALO CHICKEN BURGER</item>
+      <price>13.95</price>
+    </entree>
+    <entree>
+      <item>CORDON MOOO</item>
+      <price>13.95</price>
+    </entree>
+    <entree vegetarian="true">
+      <item>BIG BIRD</item>
+      <price>13.95</price>
+    </entree>
+    <entree>
+      <item>BEYOND BURGER</item>
+      <price>14.99</price>
+    </entree>
+    <entree>
+      <item>GRILLED SHRIMP BURGER</item>
+      <price>15.95</price>
+    </entree>
+  </section>
+  <section name="STEP TO THE SIDE">
+    <entree>
+      <item>CLASSIC FRIES</item>
+      <price>3.95</price>
+    </entree>
+    <entree>
+      <item>SWEET POTATO WAFFLE FRIES</item>
       <price>4.95</price>
     </entree>
     <entree>
-      <item>Paddy's French Fries</item>
-      <price>7.50</price>
-    </entree>
-  </section>
-  <section name="Breakfast">
-    <entree>
-      <item>Two Eggs, any style</item>
-      <price>4.99</price>
-    </entree>
-    <entree>
-      <item>Paddy's Famous Peppers and Eggs</item>
-      <price>8.29</price>
+      <item>ONION RINGS</item>
+      <price>5.95</price>
     </entree>
     <entree vegetarian="true">
-      <item>Bowl of fruit</item>
-      <price>6.99</price>
-    </entree>
-    <entree vegetarian="true">
-      <item>French toast</item>
-      <price>5.25</price>
-    </entree>
-    <entree>
-      <item>Croissant</item>
-      <price>3.99</price>
+      <item>COLESLAW</item>
+      <price>3.39</price>
     </entree>
   </section>
-  <section name="Lunch">
+  <section name="CLASSIC SHAKES">
     <entree>
-      <item>Grilled Chicken Sandwich</item>
+      <item>CHOCOLATE, VANILLA OR STRAWBERRY</item>
+      <price>5.95</price>
+    </entree>
+  </section>
+  <section name="SIGNATURE SHAKES">
+    <entree>
+      <item>COOKIES AND DREAM</item>
+      <price>6.95</price>
+    </entree>
+    <entree>
+      <item>CHOCOLATE PEANUT BUTTER BOMB</item>
       <price>7.99</price>
     </entree>
     <entree>
-      <item>Tuna Melt</item>
-      <price>6.99</price>
+      <item>SALTED CARAMEL BLISS</item>
+      <price>8.95</price>
     </entree>
     <entree vegetarian="true">
-      <item>Pasta Salad</item>
-      <price>7.39</price>
-    </entree>
-  </section>
-  <section name="Dinner">
-    <entree>
-      <item>Ribeye Steak</item>
-      <price>19.99</price>
-    </entree>
-    <entree>
-      <item>Chilean Sea Bass</item>
-      <price>12.99</price>
-    </entree>
-    <entree vegetarian="true">
-      <item>Linguini with Grilled Porcini Mushroom</item>
-      <price>9.79</price>
+      <item>BANANAS FOSTER</item>
+      <price>8.79</price>
     </entree>
   </section>
 </cafemenu>
