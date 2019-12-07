@@ -43,6 +43,10 @@
       <item>GRILLED SHRIMP BURGER</item>
       <price>15.95</price>
     </entree>
+    <entree>
+      <item>SPICY FRIES</item>
+      <price>4.55</price>
+    </entree>
   </section>
   <section name="STEP TO THE SIDE">
     <entree>
@@ -84,6 +88,10 @@
     <entree vegetarian="true">
       <item>BANANAS FOSTER</item>
       <price>8.79</price>
+    </entree>
+    <entree>
+      <item>YELLOW FLAKE</item>
+      <price>2.99</price>
     </entree>
   </section>
 </cafemenu>
