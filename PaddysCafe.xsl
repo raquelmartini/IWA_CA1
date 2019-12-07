@@ -3,10 +3,7 @@
     <xsl:template match="/">
                 <table id="menuTable" class="indent">
                     <thead>
-                        <tr>
-                            <th colspan="3">YOY'S BURGERS</th>
-                        </tr>
-                        <tr>
+                        <tr style="color: #fff; background: #2c3e50;">
                             <th>Select</th>
                             <th>Item</th>
                             <th>Price</th>
@@ -14,9 +11,11 @@
                     </thead>
                     <tbody>
                         <xsl:for-each select="/cafemenu/section">
-                            <tr>
+                            <tr style="color: #fff; background-color:#1abc9c">
                                 <td colspan="3">
+                                    <b>
                                     <xsl:value-of select="@name" />
+                                    </b>
                                 </td>
                             </tr>
                             <xsl:for-each select="entree">
