@@ -60,7 +60,7 @@ function isNumeric(str)
 {
   let numRegex = '/^\d+$/';
   return numRegex.test(str);
-}
+};
 
 // POST request to add to JSON & XML files
 router.post('/post/json', function(req, res) {
