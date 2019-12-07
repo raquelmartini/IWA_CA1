@@ -4,7 +4,8 @@ var http = require('http'), //This module provides the HTTP server functionaliti
     fs = require('fs'), //This module allows to work witht the file system: read and write files back
     xmlParse = require('xslt-processor').xmlParse, //This module allows us to work with XML files
     xsltProcess = require('xslt-processor').xsltProcess, //The same module allows us to utilise XSL Transformations
-    xml2js = require('xml2js'); //This module does XML to JSON conversion and also allows us to get from JSON back to XML
+    xml2js = require('xml2js'), //This module does XML to JSON conversion and also allows us to get from JSON back to XML
+    expAutoSan = require('express-autosanitizer'); //RMR - added server-side sanitization of title and price
 
 var router = express(); //The set our routing to be handled by Express
 var server = http.createServer(router); //This is where our server gets created
@@ -12,6 +13,8 @@ var server = http.createServer(router); //This is where our server gets created
 router.use(express.static(path.resolve(__dirname, 'views'))); //We define the views folder as the one where all static content will be served
 router.use(express.urlencoded({extended: true})); //We allow the data sent from the client to be coming in as part of the URL in GET and POST requests
 router.use(express.json()); //We include support for JSON that is coming from the client
+router.use(expAutoSan.all);  //RMR - added server-side sanitization of title and price
+
 
 // Function to read in XML file and convert it to JSON
 function xmlFileToJs(filename, cb) {
@@ -58,6 +61,9 @@ router.post('/post/json', function(req, res) {
 
   // Function to read in a JSON file, add to it & convert to XML
   function appendJSON(obj) {
+
+
+    
     // Function to read in XML file, convert it to JSON, add a new object and write back to XML file
     xmlFileToJs('PaddysCafe.xml', function(err, result) {
       if (err) throw (err);
