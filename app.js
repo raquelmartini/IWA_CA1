@@ -71,6 +71,7 @@ router.post('/post/json', function(req, res) {
       if (err) throw (err);
       //This is where you pass on information from the form inside index.html in a form of JSON and navigate through our JSON (XML) file to create a new entree object
 
+      //RMR - added server-side sanitization of title and price
       sanitizedObj.item = sanitizedObj.item.toUpperCase();
 
       result.cafemenu.section[sanitizedObj.sec_n].entree.push({'item': sanitizedObj.item, 'price': sanitizedObj.price}); //If your XML elements are differet, this is where you have to change to your own element names
