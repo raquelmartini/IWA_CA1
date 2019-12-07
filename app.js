@@ -62,8 +62,27 @@ router.post('/post/json', function(req, res) {
   // Function to read in a JSON file, add to it & convert to XML
   function appendJSON(obj) {
 
+    //RMR - added server-side sanitization of title and price
+    let sanitizedObj = expAutoSan.sanitizeIt(obj);
 
-    
+    // Function to read in XML file, convert it to JSON, add a new object and write back to XML file
+    xmlFileToJs('PaddysCafe.xml', function(err, result) {
+      if (err) throw (err);
+      //This is where you pass on information from the form inside index.html in a form of JSON and navigate through our JSON (XML) file to create a new entree object
+      result.cafemenu.section[sanitizedObj.sec_n].entree.push({'item': sanitizedObj.item, 'price': sanitizedObj.price}); //If your XML elements are differet, this is where you have to change to your own element names
+      //Converting back to our original XML file from JSON
+      jsToXmlFile('PaddysCafe.xml', result, function(err) {
+        if (err) console.log(err);
+      })
+    })
+  };
+
+/*
+router.post('/post/json', function(req, res) {
+
+  // Function to read in a JSON file, add to it & convert to XML
+  function appendJSON(obj) {
+
     // Function to read in XML file, convert it to JSON, add a new object and write back to XML file
     xmlFileToJs('PaddysCafe.xml', function(err, result) {
       if (err) throw (err);
@@ -75,6 +94,15 @@ router.post('/post/json', function(req, res) {
       })
     })
   };
+
+*/
+
+
+
+
+
+
+
 
   // Call appendJSON function and pass in body of the current POST request
   appendJSON(req.body);
