@@ -20,7 +20,7 @@
                                 </td>
                             </tr>
                             <xsl:for-each select="entree">
-                                <tr>
+                                <tr id="{position()}">
                                     <xsl:attribute name="vegetarian">
                                         <xsl:value-of select="boolean(./@vegetarian)" />
                                     </xsl:attribute>
