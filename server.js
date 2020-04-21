@@ -1,4 +1,4 @@
-var logger = require("morgan");
+logger = require("morgan");
 cors = require("cors");
 http = require("http");
 express = require("express");
