@@ -3,3 +3,4 @@ image:
 tasks:
   - name: Running MongoDB
     command: mkdir -p data && mongod --dbpath data
+    command: npm install morgan
