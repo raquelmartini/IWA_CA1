@@ -4,3 +4,8 @@ tasks:
   - name: Running MongoDB
     command: mkdir -p data && mongod --dbpath data
     command: npm install morgan
+    command: npm install cors
+    command: npm install http
+    command: npm install express
+    command: npm install body-parser
+    command: npm install mongoose
