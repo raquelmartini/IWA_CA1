@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 /*
 * Learned about validation in Mongoose from this article
 * https://code.tutsplus.com/articles/an-introduction-to-mongoose-for-mongodb-and-nodejs--cms-29527
 * Accessed: 22/4/20
 */
-var entreeSchema = new mongoose.Schema({ 
+const EntreeSchema = new mongoose.Schema({ 
     name: { 
         type: String, 
         required: true,
@@ -50,10 +50,10 @@ var entreeSchema = new mongoose.Schema({
         type: Boolean, 
         default: false
     },
-    created: { 
+    create:{
         type: Date,
         default: Date.now()
     }
 });
 
-module.exports = mongoose.model('Entree', entreeSchema);
+module.exports = mongoose.model('Entree', EntreeSchema);
