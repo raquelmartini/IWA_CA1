@@ -3,9 +3,5 @@ image:
 tasks:
   - name: Running MongoDB
     command: mkdir -p data && mongod --dbpath data
-    command: npm install morgan --save
-    command: npm install cors  --save
-    command: npm install http  --save
-    command: npm install express  --save
-    command: npm install body-parser  --save
-    command: npm install mongoose  --save
+  - name: Install dependencies
+    command: npm install morgan cors http express body-parser mongoose  --save
