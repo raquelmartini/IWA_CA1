@@ -2,19 +2,6 @@ const db = require("../db");
 const Entree = require('../models/entree');
 
 
-//read all
-exports.readAll = function(req,res){
-    // get all Todo documents within our todo collection
-    // send back to user as json
-    db.getDB().collection("entrees").find({}).toArray((err,documents)=>{
-        if(err)
-            console.log(err);
-        else{
-            res.json(documents);
-        }
-    });
-};
-
 //create one
 exports.createOne = function (req, res) {
     let newEntree = new Entree(
@@ -40,9 +27,21 @@ exports.createOne = function (req, res) {
                 error: null
             });
     });
-};
+    
+}
 
-
+//read all
+exports.readAll = function(req,res){
+    // get all Todo documents within our todo collection
+    // send back to user as json
+    db.getDB().collection("entrees").find({}).toArray((err,documents)=>{
+        if(err)
+            console.log(err);
+        else{
+            res.json(documents);
+        }
+    });
+}
 
 //update one
 exports.updateOne = function(req,res){
@@ -72,5 +71,4 @@ exports.deleteOne = function(req,res){
         else
             res.json(result);
     });
-};
-
+}
