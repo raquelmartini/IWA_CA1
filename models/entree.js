@@ -10,22 +10,36 @@ var entreeSchema = new mongoose.Schema({
         type: String, 
         required: true,
         trim: true,
-        lowercase: true
+        lowercase: true,
+        validate: {
+            validator: function(text) {
+                return text.length > 0;
+            },
+            message: 'Name must be a valid string with length > 0!'
+        }
     },
     section: { 
         type: String, 
         required: true,
         trim: true,
-        lowercase: true
+        lowercase: true,
+        validate: {
+            validator: function(text) {
+                return text.length > 0;
+            },
+            message: 'Section must be a valid string with length > 0!'
+        }
     },
     price:{
-        type: String,
+        type: Number,
         required: true,
+        min: 0.01,
+        max: 10000,
         validate: {
             validator: function(number) {
-                return number > 0;
+                return number >= 0.01 && number <= 10000;
             },
-            message: 'Price must be a value greater than zero!'
+            message: 'Price must be in a valid range i.e. [0.01 - 10000]!'
         }
     },
     vegetarian:{ 
@@ -38,7 +52,7 @@ var entreeSchema = new mongoose.Schema({
     },
     created: { 
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 });
 

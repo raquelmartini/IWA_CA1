@@ -5,3 +5,7 @@ tasks:
     command: mkdir -p data && mongod --dbpath data
   - name: Install dependencies
     command: npm install morgan cors http express body-parser mongoose  --save
+vscode:
+  extensions:
+    - HookyQR.beautify@1.5.0:mXo/OcopUVNHHxCPZWwlxQ==
+    - joelday.docthis@0.7.1:OOpm9cdbc8T5+PL4o+MM3Q==
