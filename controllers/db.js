@@ -20,12 +20,12 @@ exports.connect = function (callback){
     }
 }
 
-// returns OBJECTID object used to 
+// returns id used in find and update 
 exports.getPrimaryKey = function(id){
     return ObjectID(id);
 }
 
-// returns database connection 
+//database connection 
 exports.getDB = function(){
     return state.db;
 }
