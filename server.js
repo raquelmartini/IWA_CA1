@@ -13,22 +13,14 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const logger = require("morgan");
-const cors = require("cors");
-const http = require("http");
 const express = require("express");
-
 //rate limit for users
 const rateLimit = require('express-rate-limit');
-
 //data sanitization for XSS prevention
 const xss = require('xss-clean');
-
 //sanitize data sanitization for mongo
 const mongoSanitize = require('express-mongo-sanitize');
-
 const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
-
 const db = require('./controllers/db');
 
 const app = express();

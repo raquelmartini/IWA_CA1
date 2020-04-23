@@ -77,6 +77,7 @@ exports.readAll = function(req,res){
             error.status = 400;
             next(error);
         } else{
+            res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
     });
