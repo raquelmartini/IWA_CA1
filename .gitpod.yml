@@ -7,6 +7,7 @@ tasks:
     command: npm install dotenv morgan cors http express body-parser mongoose  --save
 vscode:
   extensions:
-    - HookyQR.beautify@1.5.0:mXo/OcopUVNHHxCPZWwlxQ==
-    - joelday.docthis@0.7.1:OOpm9cdbc8T5+PL4o+MM3Q==
     - mikestead.dotenv@1.0.1:SSXjr5hZcbqSF7nMIhTNnA==
+    - mgmcdermott.vscode-language-babel@0.0.27:ijOAfHRTZR6L81I11EnYng==
+    - vscode-icons-team.vscode-icons@10.1.1:Tp5DMCXZn0uwhjeP1TcmkQ==
+    - eamodio.gitlens@10.2.1:e0IYyp0efFqVsrZwsIe8CA==

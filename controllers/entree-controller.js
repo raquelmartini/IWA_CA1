@@ -1,6 +1,9 @@
+
 /*
-* @see https://www.youtube.com/watch?v=vjf774RKrLc [Accessed: 22/4/20]
-* @see https://www.youtube.com/watch?v=CyTWPr_WwdI [Accessed: 22/4/20]
+* Learned about using a controller from these YouTube videos
+* https://www.youtube.com/watch?v=vjf774RKrLc 
+* https://www.youtube.com/watch?v=CyTWPr_WwdI 
+* Accessed: 22/4/20
 */
 
 const db = require('./db');
