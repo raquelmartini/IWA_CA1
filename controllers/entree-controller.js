@@ -4,7 +4,7 @@
  * @author RMR
  * @version 1.0
  * @see entree-routes
- * @tutorial https://www.youtube.com/watch?v=vjf774RKrLc - used this tutorial to learn how to add routes [Accessed: 22/4/20]
+ * @tutorial https://codeburst.io/writing-a-crud-app-with-node-js-and-mongodb-e0827cbbdafb - used this tutorial to learn how to add routes [Accessed: 22/4/20]
  */
 
 const db = require('./db');
