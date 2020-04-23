@@ -47,9 +47,9 @@ app.use('/entrees', entree);
 
 //limit number of calls to the API for a user - see https://blog.logrocket.com/rate-limiting-node-js/
 const limit = rateLimit({
-    windowMs: 24 * 60 * 60 * 1000, // 24 hrs in milliseconds
-    max: 100,
-    message: 'You have exceeded the 100 requests in 24 hrs limit!', 
+    windowMs: 60 * 60 * 1000, // 1hr in milliseconds
+    max: 250,
+    message: 'You have exceeded the 100 requests in 1hr limit!', 
     headers: true
 });
 app.use('/entrees', limit);
