@@ -30,13 +30,18 @@ exports.createOne = function (req, res) {
         }
     );
 
+    console.log("Body: " + req.body.name);
+   // console.log("Body: " + JSON.stringify(req.body));
+
     db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
         if (err) {
             const error = new Error("Failed to insert record");
             error.status = 400;
             next(error);
-        } else
-            res.json(newEntree);
+        } else {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.json(result);
+        }
     });
 }
 
@@ -97,7 +102,8 @@ exports.readOne = function(req,res){
             const error = new Error("Failed to read all records");
             error.status = 400;
             next(error);
-        } else{
+            } else {
+            res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
     });
@@ -125,9 +131,10 @@ exports.updateOne = function(req,res){
             const error = new Error("Failed to update a record");
             error.status = 400;
             next(error);
-        } else{
+            } else {
+            res.header("Access-Control-Allow-Origin", "*");
             res.json(result);
-        }      
+        }   
     });
 }
 

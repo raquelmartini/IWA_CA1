@@ -26,7 +26,7 @@ const db = require('./controllers/db');
 const app = express();
 
 //prevents DOS attacks by limiting the size of the body payload - see https://itnext.io/make-security-on-your-nodejs-api-the-priority-50da8dc71d68
-app.use(express.json({limit: '100kb'}));
+//app.use(express.json({limit: '100kb'}));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
