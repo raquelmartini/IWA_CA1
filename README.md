@@ -7,8 +7,8 @@
 
 ## Startup environment variables
 * Create in .env file the following variables
-'DB_CONNECTION=<link>
-'DB_NAME=restaurant_menu
-'DB_COLLECTION=entrees
-'SERVER_PORT=3000
+1. 'DB_CONNECTION=<link>
+2. 'DB_NAME=restaurant_menu
+3. 'DB_COLLECTION=entrees
+4. 'SERVER_PORT=3000
 
