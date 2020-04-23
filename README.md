@@ -5,4 +5,10 @@
 * Added rate limiting for users
 * Added data sanitization against XSS
 
+## Startup environment variables
+* Create in .env file the following variables
+'DB_CONNECTION=<link>
+'DB_NAME=restaurant_menu
+'DB_COLLECTION=entrees
+'SERVER_PORT=3000
 
