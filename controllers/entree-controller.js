@@ -16,6 +16,7 @@ const Entree = require('../models/entree');
  * @param req HTTP request body
  * @param res HTTP response body 
  * @returns Entree object or Error
+ * @todo Add check to see if the record already exists in the DB
  */
 exports.createOne = function (req, res) {
     let newEntree = new Entree(
@@ -37,8 +38,29 @@ exports.createOne = function (req, res) {
         } else
             res.json(newEntree);
     });
-    
 }
+
+// exports.createOne = function (req, res) {
+//     let newEntree = new Entree(
+//         {
+//             name: req.body.name,
+//             section: req.body.section,
+//             price: req.body.price,
+//             vegetarian: req.body.vegetarian,
+//             vegan: req.body.vegan,
+//             createdby: req.body.createdby
+//         }
+//     );
+
+//     db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
+//         if (err) {
+//             const error = new Error("Failed to insert record");
+//             error.status = 400;
+//             next(error);
+//         } else
+//             res.json(newEntree);
+//     });
+// }
 
 
 /**
@@ -61,7 +83,7 @@ exports.readAll = function(req,res){
 }
 
 /**
- * Reads first JSON object in the collection with the ID specified in request body
+ * Reads first JSON object in the collection with the ID specified in request URL path
  * 
  * @param req HTTP request body
  * @param res HTTP response body 
@@ -81,7 +103,7 @@ exports.readOne = function(req,res){
 }
 
 /**
- * Updates and returns the (newly updated) first JSON object in the collection matching the ID specified in request body
+ * Updates and returns the (newly updated) first JSON object in the collection matching the ID specified in request URL path
  * 
  * @param req HTTP request body
  * @param res HTTP response body 
@@ -110,7 +132,7 @@ exports.updateOne = function(req,res){
 
 //delete one
 /**
- * Deletes and returns the (newly deleted) first JSON object in the collection matching the ID specified in request body
+ * Deletes and returns the (newly deleted) first JSON object in the collection matching the ID specified in request URL path
  * 
  * @param req HTTP request body
  * @param res HTTP response body 

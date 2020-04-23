@@ -3,8 +3,13 @@ image:
 tasks:
   - name: Running MongoDB
     command: mkdir -p data && mongod --dbpath data
-  - name: Install dependencies
-    command: npm install dotenv morgan cors http express body-parser mongoose  --save
+
+  - name: Install core dependencies
+    command: npm install dotenv morgan cors http express body-parser mongoose --save
+
+  - name: Install security dependencies
+    command: npm install express-rate-limit express-mongo-sanitize xss-clean --save
+   
 vscode:
   extensions:
     - mikestead.dotenv@1.0.1:SSXjr5hZcbqSF7nMIhTNnA==

@@ -1,4 +1,8 @@
-# Interactive Web Application (BSc in IT, Group A & B) 2019 – CCT<br/>[![CCT](https://www.cct.ie/wp-content/themes/hdcct/img/atoms/logo.jpg)](http://cct.ie)
+[![CCT](https://www.cct.ie/wp-content/themes/hdcct/img/atoms/logo.jpg)](http://cct.ie)
 
-CA1 in-class demo
+# Interactive Web Application - CA2 -  Raquel Martini - 2020
+* Added body payload limit
+* Added rate limiting for users
+* Added data sanitization against XSS
+
 
