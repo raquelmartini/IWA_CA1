@@ -19,16 +19,9 @@ const EntreeSchema = new mongoose.Schema({
         }
     },
     section: { 
-        type: String, 
-        required: true,
-        trim: true,
-        lowercase: true,
-        validate: {
-            validator: function(text) {
-                return text.length > 0;
-            },
-            message: 'Section must be a valid string with length > 0!'
-        }
+        type: String,
+        enum: ['snack attack', 'yoys burger', 'step to the side', 'classic shakes', 'signature shakes'],
+        default:'snack attack'
     },
     price:{
         type: Number,
@@ -50,10 +43,16 @@ const EntreeSchema = new mongoose.Schema({
         type: Boolean, 
         default: false
     },
-    create:{
+    createdby:{
+        type: String,
+        enum: ['admin', 'customer'],
+        default: 'customer'
+    },
+    creationdate:{
         type: Date,
         default: Date.now()
     }
+
 });
 
 module.exports = mongoose.model('Entree', EntreeSchema);

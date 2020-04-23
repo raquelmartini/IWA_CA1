@@ -5,7 +5,8 @@ const router = express.Router();
 const entreeController = require('../controllers/entree-controller');
 router.post('/create', entreeController.createOne);
 router.get('/read', entreeController.readAll);
-router.put('/:id/update', entreeController.updateOne);
-router.delete('/:id/delete', entreeController.deleteOne);
+router.get('/read/:id', entreeController.readOne);
+router.put('/update/:id', entreeController.updateOne);
+router.delete('/delete/:id', entreeController.deleteOne);
 
 module.exports = router;

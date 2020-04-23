@@ -1,3 +1,10 @@
+/*
+*
+*
+* @see https://www.youtube.com/watch?v=vjf774RKrLc [Accessed: 22/4/20]
+* @see https://www.youtube.com/watch?v=CyTWPr_WwdI [Accessed: 22/4/20]
+*/
+
 const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
@@ -5,7 +12,7 @@ const state = {
     db : null
 };
 
-const connect = (cb) =>{
+exports.connect = function(cb){    
     if(state.db)
         cb();
     else{
@@ -21,13 +28,11 @@ const connect = (cb) =>{
 }
 
 // returns id used in find and update 
-const getPrimaryKey = (_id)=>{
+exports.getPrimaryKey = function(_id){
     return ObjectID(_id);
 }
 
 //database connection 
-const getDB = ()=>{
+exports.getDB = function(){
     return state.db;
 }
-
-module.exports = {getDB,connect,getPrimaryKey};

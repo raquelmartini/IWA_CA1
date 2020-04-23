@@ -1,6 +1,10 @@
-const db = require("../db");
-const Entree = require('../models/entree');
+/*
+* @see https://www.youtube.com/watch?v=vjf774RKrLc [Accessed: 22/4/20]
+* @see https://www.youtube.com/watch?v=CyTWPr_WwdI [Accessed: 22/4/20]
+*/
 
+const db = require('./db');
+const Entree = require('../models/entree');
 
 //create one
 exports.createOne = function (req, res) {
@@ -10,34 +14,44 @@ exports.createOne = function (req, res) {
             section: req.body.section,
             price: req.body.price,
             vegetarian: req.body.vegetarian,
-            vegan: req.body.vegan
+            vegan: req.body.vegan,
+            createdby: req.body.createdby
         }
     );
 
-    db.getDB().collection("entrees").insertOne(newEntree, (err, result) => {
+    db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
         if (err) {
             const error = new Error("Failed to insert record");
             error.status = 400;
             next(error);
         } else
-            res.json({
-                result: result,
-                document: result.ops[0],
-                msg: "Successfully inserted record!",
-                error: null
-            });
+            res.json(newEntree);
     });
     
 }
 
 //read all
 exports.readAll = function(req,res){
-    // get all Todo documents within our todo collection
-    // send back to user as json
-    db.getDB().collection("entrees").find({}).toArray((err,documents)=>{
-        if(err)
-            console.log(err);
-        else{
+    db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err,documents)=>{
+        if (err) {
+            const error = new Error("Failed to read all records");
+            error.status = 400;
+            next(error);
+        } else{
+            res.json(documents);
+        }
+    });
+}
+
+//read one
+exports.readOne = function(req,res){
+    const id = req.params.id;
+    db.getDB().collection(process.env.DB_COLLECTION).find({_id : db.getPrimaryKey(id)}).toArray((err,documents)=>{
+        if (err) {
+            const error = new Error("Failed to read all records");
+            error.status = 400;
+            next(error);
+        } else{
             res.json(documents);
         }
     });
@@ -46,17 +60,20 @@ exports.readAll = function(req,res){
 //update one
 exports.updateOne = function(req,res){
     const id = req.params.id;
-    db.getDB().collection("entrees").findOneAndUpdate({_id : db.getPrimaryKey(id)},
+    db.getDB().collection(process.env.DB_COLLECTION).findOneAndUpdate({_id : db.getPrimaryKey(id)},
     {$set : {
             name: req.body.name,
             section: req.body.section,
             price: req.body.price,
             vegetarian: req.body.vegetarian,
-            vegan: req.body.vegan
+            vegan: req.body.vegan,
+            createdby: req.body.createdby
     }},{returnOriginal : false},(err,result)=>{
-        if(err)
-            console.log(err);
-        else{
+        if (err) {
+            const error = new Error("Failed to update a record");
+            error.status = 400;
+            next(error);
+        } else{
             res.json(result);
         }      
     });
@@ -65,10 +82,12 @@ exports.updateOne = function(req,res){
 //delete one
 exports.deleteOne = function(req,res){   
     const id = req.params.id;
-    db.getDB().collection("entrees").findOneAndDelete({_id : db.getPrimaryKey(id)},(err,result)=>{
-        if(err)
-            console.log(err);
-        else
+    db.getDB().collection(process.env.DB_COLLECTION).findOneAndDelete({_id : db.getPrimaryKey(id)},(err,result)=>{
+        if (err) {
+            const error = new Error("Failed to delete a record");
+            error.status = 400;
+            next(error);
+        } else
             res.json(result);
     });
 }
