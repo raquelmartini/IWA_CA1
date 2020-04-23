@@ -1,15 +1,22 @@
-
-/*
-* Learned about using a controller from these YouTube videos
-* https://www.youtube.com/watch?v=vjf774RKrLc 
-* https://www.youtube.com/watch?v=CyTWPr_WwdI 
-* Accessed: 22/4/20
-*/
+/**
+ * Contains route request handlers for the application
+ * 
+ * @author RMR
+ * @version 1.0
+ * @see entree-routes
+ * @tutorial https://www.youtube.com/watch?v=vjf774RKrLc - used this tutorial to learn how to add routes [Accessed: 22/4/20]
+ */
 
 const db = require('./db');
 const Entree = require('../models/entree');
 
-//create one
+/**
+ * Inserts a single Entree into the DB connected to in db
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns Entree object or Error
+ */
 exports.createOne = function (req, res) {
     let newEntree = new Entree(
         {
@@ -33,7 +40,14 @@ exports.createOne = function (req, res) {
     
 }
 
-//read all
+
+/**
+ * Reads and returns all the collection as an array of JSON objects
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns Array of newly Entree objects or Error
+ */
 exports.readAll = function(req,res){
     db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err,documents)=>{
         if (err) {
@@ -46,7 +60,13 @@ exports.readAll = function(req,res){
     });
 }
 
-//read one
+/**
+ * Reads first JSON object in the collection with the ID specified in request body
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns Entree object or Error
+ */
 exports.readOne = function(req,res){
     const id = req.params.id;
     db.getDB().collection(process.env.DB_COLLECTION).find({_id : db.getPrimaryKey(id)}).toArray((err,documents)=>{
@@ -60,7 +80,13 @@ exports.readOne = function(req,res){
     });
 }
 
-//update one
+/**
+ * Updates and returns the (newly updated) first JSON object in the collection matching the ID specified in request body
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns Entree object or Error
+ */
 exports.updateOne = function(req,res){
     const id = req.params.id;
     db.getDB().collection(process.env.DB_COLLECTION).findOneAndUpdate({_id : db.getPrimaryKey(id)},
@@ -83,6 +109,13 @@ exports.updateOne = function(req,res){
 }
 
 //delete one
+/**
+ * Deletes and returns the (newly deleted) first JSON object in the collection matching the ID specified in request body
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns Entree object or Error
+ */
 exports.deleteOne = function(req,res){   
     const id = req.params.id;
     db.getDB().collection(process.env.DB_COLLECTION).findOneAndDelete({_id : db.getPrimaryKey(id)},(err,result)=>{

@@ -1,3 +1,13 @@
+
+/**
+ * Contains code to load all requirements, map base URL path to the correct router, connect to the database, and listen for incoming REST requests
+ * 
+ * @author RMR
+ * @version 1.0
+ * @see db, .env, entree-routes
+ * @tutorial https://www.youtube.com/watch?v=vjf774RKrLc - used this tutorial to learn how to add routes [Accessed: 22/4/20]
+ */
+
 const dotenv = require('dotenv');
 dotenv.config();
 
