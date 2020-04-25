@@ -7,6 +7,9 @@ tasks:
   - name: Install core dependencies
     command: npm install dotenv morgan cors http express body-parser mongoose --save
 
+  - name: Install http file xml json xslt dependencies
+    command: npm install http path fs xslt-processor xml2js --save
+
   - name: Install security dependencies
     command: npm install express-rate-limit express-mongo-sanitize xss-clean --save
    

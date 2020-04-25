@@ -14,43 +14,35 @@ dotenv.config();
 
 const logger = require("morgan");
 const express = require("express");
+const http = require('http');
+const path = require('path');
+
 //rate limit for users
 const rateLimit = require('express-rate-limit');
-//data sanitization for XSS prevention
 const xss = require('xss-clean');
-//sanitize data sanitization for mongo
 const mongoSanitize = require('express-mongo-sanitize');
 const bodyParser = require("body-parser");
+
 const db = require('./controllers/db');
+const router = express();
+const server = http.createServer(router); //This is where our server gets created
 
-const app = express();
-
-//prevents DOS attacks by limiting the size of the body payload - see https://itnext.io/make-security-on-your-nodejs-api-the-priority-50da8dc71d68
-//app.use(express.json({limit: '100kb'}));
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+router.use(express.static(path.resolve(__dirname, 'views'))); //We define the views folder as the one where all static content will be served
+router.use(express.urlencoded({extended: true})); //We allow the data sent from the client to be coming in as part of the URL in GET and POST requests
+router.use(express.json()); //We include support for JSON that is coming from the client
+router.use(logger('dev'));
 
 //map the url path for entree
 const entree = require('./routes/entree-routes'); 
 //map URL path to the router
-app.use('/entrees', entree);
+router.use('/entrees', entree);
 
-//limit number of calls to the API for a user - see https://blog.logrocket.com/rate-limiting-node-js/
-const limit = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1hr in milliseconds
-    max: 250,
-    message: 'You have exceeded the 100 requests in 1hr limit!', 
-    headers: true
+//We define the root of our website and render index.html located inside the views folder
+router.get('/', function(req, res){
+
+    res.render('index');
+
 });
-app.use('/entrees', limit);
-
-//data sanitization to prevent XSS attacks - see https://blog.logrocket.com/rate-limiting-node-js/
-app.use(xss());
-
-//sanitize data sanitization for mongo
-app.use(mongoSanitize());
 
 //start the server listening and connect to the mongo DB
 db.connect((err) => {
@@ -58,7 +50,7 @@ db.connect((err) => {
         console.log('unable to connect to database');
         process.exit();
     } else {
-        app.listen(process.env.SERVER_PORT, () => {
+        server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function() {
             console.log('connected and listening on port ' + process.env.SERVER_PORT);
         });
     }

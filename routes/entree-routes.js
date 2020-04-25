@@ -11,12 +11,15 @@
 const express = require('express');
 const router = express.Router();
 
-//controller reference
+//general CRUD invokable from POSTMAN
 const entreeController = require('../controllers/entree-controller');
 router.post('/create', entreeController.createOne);
 router.get('/read', entreeController.readAll);
 router.get('/read/:id', entreeController.readOne);
 router.put('/update/:id', entreeController.updateOne);
 router.delete('/delete/:id', entreeController.deleteOne);
+
+//web page specific 
+router.get('/get/html', entreeController.readAllAsHTML);
 
 module.exports = router;

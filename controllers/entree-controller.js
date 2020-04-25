@@ -7,6 +7,10 @@
  * @tutorial https://codeburst.io/writing-a-crud-app-with-node-js-and-mongodb-e0827cbbdafb - used this tutorial to learn how to add routes [Accessed: 22/4/20]
  */
 
+const fs = require('fs');
+const xmlParse = require('xslt-processor').xmlParse;
+const xsltProcess = require('xslt-processor').xsltProcess;
+const xml2js = require('xml2js');
 const db = require('./db');
 const Entree = require('../models/entree');
 
@@ -31,7 +35,7 @@ exports.createOne = function (req, res) {
     );
 
     console.log("Body: " + req.body.name);
-   // console.log("Body: " + JSON.stringify(req.body));
+    // console.log("Body: " + JSON.stringify(req.body));
 
     db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
         if (err) {
@@ -75,13 +79,13 @@ exports.createOne = function (req, res) {
  * @param res HTTP response body 
  * @returns Array of newly Entree objects or Error
  */
-exports.readAll = function(req,res){
-    db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err,documents)=>{
+exports.readAll = function (req, res) {
+    db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err, documents) => {
         if (err) {
             const error = new Error("Failed to read all records");
             error.status = 400;
             next(error);
-        } else{
+        } else {
             res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
@@ -95,14 +99,14 @@ exports.readAll = function(req,res){
  * @param res HTTP response body 
  * @returns Entree object or Error
  */
-exports.readOne = function(req,res){
+exports.readOne = function (req, res) {
     const id = req.params.id;
-    db.getDB().collection(process.env.DB_COLLECTION).find({_id : db.getPrimaryKey(id)}).toArray((err,documents)=>{
+    db.getDB().collection(process.env.DB_COLLECTION).find({ _id: db.getPrimaryKey(id) }).toArray((err, documents) => {
         if (err) {
             const error = new Error("Failed to read all records");
             error.status = 400;
             next(error);
-            } else {
+        } else {
             res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
@@ -116,29 +120,30 @@ exports.readOne = function(req,res){
  * @param res HTTP response body 
  * @returns Entree object or Error
  */
-exports.updateOne = function(req,res){
+exports.updateOne = function (req, res) {
     const id = req.params.id;
-    db.getDB().collection(process.env.DB_COLLECTION).findOneAndUpdate({_id : db.getPrimaryKey(id)},
-    {$set : {
-            name: req.body.name,
-            section: req.body.section,
-            price: req.body.price,
-            vegetarian: req.body.vegetarian,
-            vegan: req.body.vegan,
-            createdby: req.body.createdby
-    }},{returnOriginal : false},(err,result)=>{
-        if (err) {
-            const error = new Error("Failed to update a record");
-            error.status = 400;
-            next(error);
+    db.getDB().collection(process.env.DB_COLLECTION).findOneAndUpdate({ _id: db.getPrimaryKey(id) },
+        {
+            $set: {
+                name: req.body.name,
+                section: req.body.section,
+                price: req.body.price,
+                vegetarian: req.body.vegetarian,
+                vegan: req.body.vegan,
+                createdby: req.body.createdby
+            }
+        }, { returnOriginal: false }, (err, result) => {
+            if (err) {
+                const error = new Error("Failed to update a record");
+                error.status = 400;
+                next(error);
             } else {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.json(result);
-        }   
-    });
+                res.header("Access-Control-Allow-Origin", "*");
+                res.json(result);
+            }
+        });
 }
 
-//delete one
 /**
  * Deletes and returns the (newly deleted) first JSON object in the collection matching the ID specified in request URL path
  * 
@@ -146,14 +151,45 @@ exports.updateOne = function(req,res){
  * @param res HTTP response body 
  * @returns Entree object or Error
  */
-exports.deleteOne = function(req,res){   
+exports.deleteOne = function (req, res) {
     const id = req.params.id;
-    db.getDB().collection(process.env.DB_COLLECTION).findOneAndDelete({_id : db.getPrimaryKey(id)},(err,result)=>{
+    db.getDB().collection(process.env.DB_COLLECTION).findOneAndDelete({ _id: db.getPrimaryKey(id) }, (err, result) => {
         if (err) {
             const error = new Error("Failed to delete a record");
             error.status = 400;
             next(error);
         } else
             res.json(result);
+    });
+}
+
+
+
+/**
+ * Reads the JSON from the DB, convert to XML, render using XSL and return as HTML
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns HTML of JSON rendered using XSL file
+ */
+exports.readAllAsHTML = function (req, res) {
+    db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err, documents) => {
+        if (err) {
+            const error = new Error("Failed to read all records");
+            error.status = 400;
+            next(error);
+        } else {
+            console.log(documents);
+            /*
+            var builder = new xml2js.Builder();
+            var xml = builder.buildObject(documents);
+            var xsl = fs.readFileSync('../PaddysCafe.xsl', 'utf8');
+            var stylesheet = xmlParse(xsl); //Parsing our XSL file
+            var result = xsltProcess(xml, stylesheet); //Execute Transformation
+            console.log(result);
+*/
+            res.header("Access-Control-Allow-Origin", "*");
+            res.json(documents);
+        }
     });
 }
