@@ -80,7 +80,9 @@ exports.createOne = function (req, res) {
  * @returns Array of newly Entree objects or Error
  */
 exports.readAll = function (req, res) {
-    db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err, documents) => {
+    db.getDB().collection(process.env.DB_COLLECTION).find({})
+    .sort( { "section": 1, "name": 1 } )
+    .toArray((err, documents) => {
         if (err) {
             const error = new Error("Failed to read all records");
             error.status = 400;
@@ -164,25 +166,27 @@ exports.deleteOne = function (req, res) {
 }
 
 
+exports.web_page_CreateOne = function (req, res) {
+  //  const id = req.params.id;
+    console.log(req.body);
+    res.json({msg: "hello"});
+}
 
-/**
- * Reads the JSON from the DB, convert to XML, render using XSL and return as HTML
- * 
- * @param req HTTP request body
- * @param res HTTP response body 
- * @returns HTML of JSON rendered using XSL file
- */
-exports.readAllAsHTML = function (req, res) {
+
+exports.web_page_readAll = function (req, res) {
     db.getDB().collection(process.env.DB_COLLECTION).find({}).toArray((err, documents) => {
         if (err) {
             const error = new Error("Failed to read all records");
             error.status = 400;
             next(error);
         } else {
-            console.log(documents);
+
+        //    let obj = JSON.parse(documents[0]);
+            console.log(documents[0].name);
             /*
             var builder = new xml2js.Builder();
             var xml = builder.buildObject(documents);
+
             var xsl = fs.readFileSync('../PaddysCafe.xsl', 'utf8');
             var stylesheet = xmlParse(xsl); //Parsing our XSL file
             var result = xsltProcess(xml, stylesheet); //Execute Transformation
@@ -193,3 +197,12 @@ exports.readAllAsHTML = function (req, res) {
         }
     });
 }
+
+exports.web_page_DeleteOne = function (req, res) {
+    const id = req.params.id;
+    console.log(req.params);
+    res.json({msg: "hello"});
+}
+
+
+

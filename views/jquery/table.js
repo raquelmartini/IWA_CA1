@@ -15,7 +15,7 @@ function draw_table()
 			}
 		});
 	};
-	$.getJSONuncached("/get/html")
+	$.getJSONuncached("entrees/get/html")
 };
 
 function select_row()
@@ -36,7 +36,7 @@ function delete_row(sec, ent)
 	{
 		$.ajax(
 		{
-			url: "/post/delete",
+			url: "entrees/post/delete",
 			type: "POST",
 			data:
 			{

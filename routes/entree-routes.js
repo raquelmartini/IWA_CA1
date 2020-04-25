@@ -20,6 +20,8 @@ router.put('/update/:id', entreeController.updateOne);
 router.delete('/delete/:id', entreeController.deleteOne);
 
 //web page specific 
-router.get('/get/html', entreeController.readAllAsHTML);
+router.get('/get/html', entreeController.web_page_readAll);
+router.post('/post/json', entreeController.web_page_CreateOne);
+router.post('/post/delete', entreeController.web_page_DeleteOne);
 
 module.exports = router;
