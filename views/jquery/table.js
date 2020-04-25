@@ -29,19 +29,19 @@ function select_row() {
 
 function create_row() {
 
-    console.log("creating...");
-    
     $.ajax({
         url: "web/create",
         type: "POST",
         data: { 
             name: $('#entree_name').val(), 
-            price: $('#entree_price').val() 
+            price: $('#entree_price').val(),
+            section: $('#entree_section').val(), 
+            vegan: $('#entree_price').val(), 
+            vegan: $('#entree_vegan').val(),
+            vegetarian: $('#entree_vegetarian').val(),
+            createdby: $('#entree_createdby').val()
         },
-        success: setTimeout(draw_table, 1000),
-        error: function (jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        }
+        success: setTimeout(draw_table, 1000)
     });
 
 }
@@ -62,18 +62,23 @@ function delete_row(id) {
     })
 }
 
+function removeAllChildren(cssSelector){
+    let child = cssSelector.lastElementChild;
+    while (child) {
+        cssSelector.removeChild(child);
+        child = cssSelector.lastElementChild;
+    }
+}
+
 function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
 
-    let parent = document.querySelector(cssSelectorParent);
+    let headingsArray = ["Select", "Item", "Price per item(EU)"];
+    let sectionTitleArray = ["Yoy's Burgers", "Snack Attack", "Step to the Side", "Signature Shakes", "Classic Shakes"];
 
-    let child = parent.lastElementChild;
-    while (child) {
-        parent.removeChild(child);
-        child = parent.lastElementChild;
-    }
+    let parent = document.querySelector(cssSelectorParent);
+    removeAllChildren(parent);
 
     let df = document.createDocumentFragment();
-
     let table = document.createElement("table");
     table.setAttribute("id", "menuTable");
     table.setAttribute("class", "indent");
@@ -83,7 +88,6 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
     let tr = document.createElement("tr");
     tr.setAttribute("style", "color: #fff; background: #2c3e50;");
 
-    let headingsArray = ["Select", "Item", "Price per item(EU)"];
     for (let heading of headingsArray) {
         let th = document.createElement("th");
         th.innerText = heading;
@@ -96,19 +100,30 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
     let count = 0;
     let td = null;
     let itemNumber = 0;
-    let currentSectionName = null;
+    let currentSection = -1;
     let tbody = document.createElement("tbody");
 
+    let selectionParent = document.querySelector("#entree_section.form-control");
+    removeAllChildren(selectionParent);
+    let selectionIndex = 0;
+    for (let selectionTitle of sectionTitleArray)
+    {
+        let option = document.createElement("option");
+        option.innerText = selectionTitle;
+        option.setAttribute("value", selectionIndex++);
+        selectionParent.appendChild(option);
+    }
+
     for (let entree of jsonEntreeArray) {
-        if (entree.section != currentSectionName) {
+        if (entree.section != currentSection) {
             tr = document.createElement("tr");
             tr.setAttribute("style", "color: #fff; background-color:#1abc9c");
             td = document.createElement("td");
             td.setAttribute("colspan", "3");
-            td.innerHTML = `<b>${entree.section}</b>`;
+            td.innerHTML = "<b>" + sectionTitleArray[entree.section] + "</b>";
             tr.appendChild(td);
             tbody.appendChild(tr);
-            currentSectionName = entree.section;
+            currentSection = entree.section;
             count = 1;
         }
 

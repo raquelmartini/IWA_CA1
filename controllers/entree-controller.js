@@ -42,33 +42,10 @@ exports.createOne = function (req, res) {
             error.status = 400;
             next(error);
         } else {
-            res.header("Access-Control-Allow-Origin", "*");
             res.json(result);
         }
     });
 }
-
-// exports.createOne = function (req, res) {
-//     let newEntree = new Entree(
-//         {
-//             name: req.body.name,
-//             section: req.body.section,
-//             price: req.body.price,
-//             vegetarian: req.body.vegetarian,
-//             vegan: req.body.vegan,
-//             createdby: req.body.createdby
-//         }
-//     );
-
-//     db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
-//         if (err) {
-//             const error = new Error("Failed to insert record");
-//             error.status = 400;
-//             next(error);
-//         } else
-//             res.json(newEntree);
-//     });
-// }
 
 
 /**
@@ -87,7 +64,6 @@ exports.readAll = function (req, res) {
             error.status = 400;
             next(error);
         } else {
-            res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
     });
@@ -108,7 +84,6 @@ exports.readOne = function (req, res) {
             error.status = 400;
             next(error);
         } else {
-            res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
     });
@@ -139,7 +114,6 @@ exports.updateOne = function (req, res) {
                 error.status = 400;
                 next(error);
             } else {
-                res.header("Access-Control-Allow-Origin", "*");
                 res.json(result);
             }
         });
@@ -172,8 +146,7 @@ exports.web_page_Get = function (req, res) {
 
 exports.web_page_CreateOne = function (req, res) {
 
-    console.log("reached create one...");
-    
+      
      let newEntree = new Entree(
         {
             name: req.body.name,

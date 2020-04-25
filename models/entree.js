@@ -22,10 +22,10 @@ const EntreeSchema = new mongoose.Schema({
         }
     },
     section: { 
-        type: String,
-        trim: true,
-        enum: ['snack attack', 'yoys burger', 'step to the side', 'classic shakes', 'signature shakes'],
-        default:'snack attack'
+        type: Number,
+        min: 0,
+        max: 4,
+        default: 0
     },
     price:{
         type: Number,
