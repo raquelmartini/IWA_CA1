@@ -166,6 +166,11 @@ exports.deleteOne = function (req, res) {
 }
 
 
+exports.web_page_Get = function (req, res) {
+   // res.json({msg: "hello"});
+    res.render('../views/index');
+}
+
 exports.web_page_CreateOne = function (req, res) {
   //  const id = req.params.id;
     console.log(req.body);

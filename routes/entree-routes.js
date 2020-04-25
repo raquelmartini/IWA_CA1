@@ -11,7 +11,7 @@
 const express = require('express');
 const router = express.Router();
 
-//general CRUD invokable from POSTMAN
+//generic CRUD from POSTMAN
 const entreeController = require('../controllers/entree-controller');
 router.post('/create', entreeController.createOne);
 router.get('/read', entreeController.readAll);
@@ -20,6 +20,7 @@ router.put('/update/:id', entreeController.updateOne);
 router.delete('/delete/:id', entreeController.deleteOne);
 
 //web page specific 
+router.get('/', entreeController.web_page_Get);
 router.get('/get/html', entreeController.web_page_readAll);
 router.post('/post/json', entreeController.web_page_CreateOne);
 router.post('/post/delete', entreeController.web_page_DeleteOne);

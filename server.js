@@ -23,10 +23,7 @@ const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const bodyParser = require("body-parser");
 
-const db = require('./controllers/db');
 const router = express();
-const server = http.createServer(router); //This is where our server gets created
-
 router.use(express.static(path.resolve(__dirname, 'views'))); //We define the views folder as the one where all static content will be served
 router.use(express.urlencoded({extended: true})); //We allow the data sent from the client to be coming in as part of the URL in GET and POST requests
 router.use(express.json()); //We include support for JSON that is coming from the client
@@ -35,16 +32,12 @@ router.use(logger('dev'));
 //map the url path for entree
 const entree = require('./routes/entree-routes'); 
 //map URL path to the router
-router.use('/entrees', entree);
-
-//We define the root of our website and render index.html located inside the views folder
-router.get('/', function(req, res){
-
-    res.render('index');
-
-});
+router.use('/', entree);
 
 //start the server listening and connect to the mongo DB
+const server = http.createServer(router); //This is where our server gets created
+const db = require('./controllers/db');
+
 db.connect((err) => {
     if (err) {
         console.log('unable to connect to database');
