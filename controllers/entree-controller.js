@@ -167,7 +167,6 @@ exports.deleteOne = function (req, res) {
 
 
 exports.web_page_Get = function (req, res) {
-   // res.json({msg: "hello"});
     res.render('../views/index');
 }
 
@@ -185,28 +184,22 @@ exports.web_page_readAll = function (req, res) {
             error.status = 400;
             next(error);
         } else {
-
-        //    let obj = JSON.parse(documents[0]);
-            console.log(documents[0].name);
-            /*
-            var builder = new xml2js.Builder();
-            var xml = builder.buildObject(documents);
-
-            var xsl = fs.readFileSync('../PaddysCafe.xsl', 'utf8');
-            var stylesheet = xmlParse(xsl); //Parsing our XSL file
-            var result = xsltProcess(xml, stylesheet); //Execute Transformation
-            console.log(result);
-*/
-            res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
     });
 }
 
 exports.web_page_DeleteOne = function (req, res) {
-    const id = req.params.id;
-    console.log(req.params);
-    res.json({msg: "hello"});
+    const id = req.body.id;
+    db.getDB().collection(process.env.DB_COLLECTION).findOneAndDelete({ _id: db.getPrimaryKey(id) }, (err, result) => {
+        if (err) {
+            const error = new Error("Failed to delete a record");
+            error.status = 400;
+            next(error);
+        } else
+            res.json(result);
+    });
+
 }
 
 

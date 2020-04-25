@@ -42,12 +42,12 @@ function select_row() {
         $(".selected").removeClass("selected");
         $(this).addClass("selected");
         var section = $(this).prevAll("tr").children("td[colspan='3']").length - 1;
-        var entree = $(this).attr("id") - 1;
-        delete_row(section, entree);
+        var id = $(this).attr("id");
+        delete_row(id);
     })
 };
 
-function delete_row(sec, ent) {
+function delete_row(id) {
     $("#delete").click(function () {
         $.ajax(
             {
@@ -55,8 +55,7 @@ function delete_row(sec, ent) {
                 type: "POST",
                 data:
                 {
-                    section: sec,
-                    entree: ent
+                    id: id
                 },
                 cache: false,
                 success: setTimeout(draw_table, 1000)
@@ -66,8 +65,14 @@ function delete_row(sec, ent) {
 
 function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
 
-    console.log(jsonEntreeArray);
-    
+    let parent = document.querySelector(cssSelectorParent);
+
+    let child = parent.lastElementChild;
+    while (child) {
+        parent.removeChild(child);
+        child = parent.lastElementChild;
+    }
+
     let df = document.createDocumentFragment();
 
     let table = document.createElement("table");
@@ -109,7 +114,7 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
         }
 
         tr = document.createElement("tr");
-        tr.setAttribute("id", count++);
+        tr.setAttribute("id", entree._id);
         tr.setAttribute("vegetarian", entree.vegetarian ? "true" : "false");
         td = document.createElement("td");
         td.setAttribute("align", "center");
@@ -125,11 +130,20 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
         tbody.appendChild(tr);
     }
 
+    if(jsonEntreeArray.length  == 0)
+    {
+        tr = document.createElement("tr");
+        tr.setAttribute("align", "center");
+        td = document.createElement("td");
+        td.setAttribute("colspan", "3");
+        td.innerHTML = `<b>There are no menu entrees</b>`;
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+    }
+
     table.appendChild(tbody);
     df.appendChild(table);
-
-    let anchor = document.querySelector(cssSelectorParent);
-    anchor.appendChild(df);
+    parent.appendChild(df);
 }
 
 $(document).ready(function () {
