@@ -19,10 +19,10 @@ router.get('/read/:id', entreeController.readOne);
 router.put('/update/:id', entreeController.updateOne);
 router.delete('/delete/:id', entreeController.deleteOne);
 
-//web page specific 
-router.get('/', entreeController.web_page_Get);
-router.get('/get/html', entreeController.web_page_readAll);
-router.post('/post/json', entreeController.web_page_CreateOne);
-router.post('/post/delete', entreeController.web_page_DeleteOne);
+//web CRUD 
+router.get('/', entreeController.web_page_Get);  //y
+router.get('/web/read', entreeController.web_page_readAll); //y
+router.post('/web/create', entreeController.web_page_CreateOne);
+router.post('/web/delete', entreeController.web_page_DeleteOne); //y
 
 module.exports = router;

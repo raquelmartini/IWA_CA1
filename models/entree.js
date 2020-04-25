@@ -14,7 +14,6 @@ const EntreeSchema = new mongoose.Schema({
         type: String, 
         required: true,
         trim: true,
-        lowercase: true,
         validate: {
             validator: function(text) {
                 return text.length > 0;
@@ -25,7 +24,6 @@ const EntreeSchema = new mongoose.Schema({
     section: { 
         type: String,
         trim: true,
-        lowercase: true,
         enum: ['snack attack', 'yoys burger', 'step to the side', 'classic shakes', 'signature shakes'],
         default:'snack attack'
     },

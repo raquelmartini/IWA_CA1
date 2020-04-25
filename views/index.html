@@ -254,23 +254,32 @@
 		<div class="row">
 			<div id="results" class="col-lg-8 text-center order-3"></div>
 			<div class="col-lg-4 text-center order-2">
-				<form enctype="application/json" action="post/json" method="post">
+				<form enctype="application/json" action="web/create" method="post" id="addEntreeForm">
 					<div class="form-group">
-						<select class="form-control" name="sec_n">
-							<option value="0">SNACK ATTACK</option>
-							<option value="1">YOYS BURGERS</option>
-							<option value="2">STEP TO THE SIDE</option>
-							<option value="3">CLASSIC SHAKES</option>
-							<option value="4">SIGNATURE SHAKES</option>
+						<select class="form-control" name="section">
+							<option value="Snack Attack">Snack Attack</option>
+							<option value="Yoy's Burgers">Yoy's Burgers</option>
+							<option value="Step to the Side">Step to the Side</option>
+							<option value="Classic Shakes">Classic Shakes</option>
+							<option value="Signature Shakes">Signature Shakes</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="item" placeholder="Item" pattern="[A-Za-z]{1}[A-Za-z0-9\s]{0,64}" title="A valid dish name with at least one character, starting with a letter" required>
+						<input class="form-control" type="text" id="entree_name" name="name" placeholder="Name" pattern="[A-Za-z]{1}[A-Za-z0-9\s]{0,64}" title="A valid dish name with at least one character, starting with a letter" required>
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="price" placeholder="Price" pattern="(\d{1,4}(\.\d{1,2})*)" title="A valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values" required>
+						<input class="form-control" type="text" id="entree_price" name="price" placeholder="Price" pattern="(\d{1,4}(\.\d{1,2})*)" title="A valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values" required>
 					</div>
-					<button style="margin-bottom: 5px;" type="submit" class="btn btn-primary btn-block" href="#">Add New Dish</button>
+                    <div class="input-group-text" style="width: 150px; background-color: white; margin-bottom: 10px; padding-top: 4px; padding-bottom: 4px;">
+                        <input type="checkbox" id="entree_vegan" value=true>
+                        <label> Vegan</label><br>
+  					</div>
+                    <div class="input-group-text" style="width: 150px; background-color: white; margin-bottom: 10px; padding-top: 4px; padding-bottom: 4px;">
+                         <input type="checkbox" id="entree_vegetarian" value=true>
+                        <label> Vegetarian</label><br>
+  					</div>
+                    <input type="hidden" id="entree_createdby" value="admin">
+					<button style="margin-bottom: 5px;" onclick="submitEntree()" class="btn btn-primary btn-block" href="#">Add New Dish</button>
 				</form>
                     <button style="margin-bottom: 5px;" id="delete" class="btn btn-block btn-danger">Remove An Existing Dish</button>
                     <p class="text-muted">To remove a dish, click the required row first</p>
@@ -294,6 +303,11 @@
 	</div>
   </section>
 
+<script>
+function submitEntree() {
+    create_row();
+}
+</script>
   
 
   <!-- Contact Section -->

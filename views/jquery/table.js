@@ -1,23 +1,3 @@
-// function draw_table()
-// {
-// 	$("#results").empty();
-// 	$.getJSONuncached = function (url)
-// 	{
-// 		return $.ajax(
-// 		{
-// 			url: url,
-// 			type: 'GET',
-// 			cache: false,
-// 			success: function (html)
-// 			{
-//                 console.log(html);
-// 				$("#results").append(html);
-// 				select_row();
-// 			}
-// 		});
-// 	};
-// 	$.getJSONuncached("get/html")
-// };
 
 function draw_table() {
     $("#results").empty();
@@ -34,8 +14,8 @@ function draw_table() {
                 }
             });
     };
-    $.getJSONuncached("get/html")
-};
+    $.getJSONuncached("/web/read")
+}
 
 function select_row() {
     $("#menuTable tbody tr[id]").click(function () {
@@ -45,13 +25,32 @@ function select_row() {
         var id = $(this).attr("id");
         delete_row(id);
     })
-};
+}
+
+function create_row() {
+
+    console.log("creating...");
+    
+    $.ajax({
+        url: "web/create",
+        type: "POST",
+        data: { 
+            name: $('#entree_name').val(), 
+            price: $('#entree_price').val() 
+        },
+        success: setTimeout(draw_table, 1000),
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+}
 
 function delete_row(id) {
     $("#delete").click(function () {
         $.ajax(
             {
-                url: "post/delete",
+                url: "web/delete",
                 type: "POST",
                 data:
                 {
@@ -61,7 +60,7 @@ function delete_row(id) {
                 success: setTimeout(draw_table, 1000)
             })
     })
-};
+}
 
 function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
 
@@ -130,8 +129,7 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
         tbody.appendChild(tr);
     }
 
-    if(jsonEntreeArray.length  == 0)
-    {
+    if (jsonEntreeArray.length == 0) {
         tr = document.createElement("tr");
         tr.setAttribute("align", "center");
         td = document.createElement("td");
@@ -148,6 +146,6 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
 
 $(document).ready(function () {
     draw_table();
-});
+})
 
 

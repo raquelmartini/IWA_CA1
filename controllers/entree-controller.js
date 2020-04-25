@@ -14,6 +14,8 @@ const xml2js = require('xml2js');
 const db = require('./db');
 const Entree = require('../models/entree');
 
+/************************************************************* GENERIC CRUD  *************************************************************/
+
 /**
  * Inserts a single Entree into the DB connected to in db
  * 
@@ -33,9 +35,6 @@ exports.createOne = function (req, res) {
             createdby: req.body.createdby
         }
     );
-
-    console.log("Body: " + req.body.name);
-    // console.log("Body: " + JSON.stringify(req.body));
 
     db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
         if (err) {
@@ -81,7 +80,7 @@ exports.createOne = function (req, res) {
  */
 exports.readAll = function (req, res) {
     db.getDB().collection(process.env.DB_COLLECTION).find({})
-    .sort( { "section": 1, "name": 1 } )
+    .sort( { "section": 1, "price": -1 } )
     .toArray((err, documents) => {
         if (err) {
             const error = new Error("Failed to read all records");
@@ -165,15 +164,46 @@ exports.deleteOne = function (req, res) {
     });
 }
 
+/************************************************************* WEB PAGE CRUD  *************************************************************/
 
 exports.web_page_Get = function (req, res) {
     res.render('../views/index');
 }
 
 exports.web_page_CreateOne = function (req, res) {
-  //  const id = req.params.id;
-    console.log(req.body);
-    res.json({msg: "hello"});
+
+    console.log("reached create one...");
+    
+     let newEntree = new Entree(
+        {
+            name: req.body.name,
+            section: req.body.section,
+            price: req.body.price,
+            vegetarian: req.body.vegetarian,
+            vegan: req.body.vegan,
+            createdby: req.body.createdby
+        }
+    );
+
+    db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
+        if (err) {
+            const error = new Error("Failed to insert record");
+            error.status = 400;
+            next(error);
+        } else {
+        db.getDB().collection(process.env.DB_COLLECTION).find({})
+            .sort( { "section": 1, "price": -1 } )
+            .toArray((err, documents) => {
+                if (err) {
+                    const error = new Error("Failed to read all records");
+                    error.status = 400;
+                    next(error);
+                } else {
+                    res.json(documents);
+                }
+            });
+        }
+    });
 }
 
 
