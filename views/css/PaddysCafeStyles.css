@@ -32,7 +32,8 @@ table, th, td {
  th {
      font-weight: bold;
 }
-.selected {
+.selected,
+tr:hover  {
             background-color: #dc3545;
             color: #FFF;
 }

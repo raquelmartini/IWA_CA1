@@ -17,7 +17,6 @@ SERVER_PORT=3000
 
 //xss, sanitization, rate limit - see server.js
 DB_ENABLE_SECURITY_FUNCTIONS=false
-
 ~~~~
 
 ## Routes
@@ -40,6 +39,9 @@ router.put('/update/:id', entreeController.updateOne);
 
 //ID as JSON field
 router.delete('/delete', entreeController.deleteOne);  
+
+//ID as JSON field
+router.delete('/delete/many', entreeController.deleteMany);  
 
 //ID as param 
 router.delete('/delete/:id', entreeController.deleteOne); 
