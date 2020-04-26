@@ -682,8 +682,11 @@
 	</div>
 
 	<script>
-		function submitEntree() {
 
+    /**
+     * Validates and submits the dishes form
+     */
+	function submitEntree() {
         //added this because regular expressions in HTML did not prevent submission if invalid
         if(validateForm())
         {
@@ -696,6 +699,7 @@
     
     /**
      * Validate the dishes form
+     * @returns true if valid
      */
 	function validateForm() {
         let name = document.forms["addEntreeForm"]["entree_name"].value;
@@ -716,7 +720,9 @@
     }
 
     /**
-     * Validate the dishes form
+     * Capitalise the first letter of a string
+     * @returns String in first letter capitalized format
+     * @tutorial https://stackoverflow.com/questions/32589197/capitalize-first-letter-of-each-word-in-a-string-javascript/45620677
      */
     function capitalizeFirstLetter(str) {
         str = str.trim();
