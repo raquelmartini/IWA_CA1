@@ -2,27 +2,46 @@
 
 # Interactive Web Application - CA2 -  Raquel Martini - 2020
 
+
+## Issues
+* See Issues in GitHub
+
+
 ## Routes
 ~~~~
-//postman
-router.post('/create', entreeController.createOne);
-router.get('/read', entreeController.readAll);
-router.get('/read/:id', entreeController.readOne);
-router.put('/update/:id', entreeController.updateOne);
-router.delete('/delete/:id', entreeController.deleteOne);
+//entree-controller.js
+//load page
+router.get('/', entreeController.renderIndex);  
 
-//web page
-router.get('/', entreeController.web_page_Get);  
-router.get('/web/read', entreeController.web_page_readAll); 
-router.post('/web/create', entreeController.web_page_CreateOne);
-router.post('/web/delete', entreeController.web_page_DeleteOne); 
+//JSON body containing entree detauls
+router.post('/create', entreeController.createOne);
+
+//No param or JSON
+router.get('/read', entreeController.readAll);
+
+//ID as param 
+router.get('/read/:id', entreeController.readOne);
+
+//ID as param and JSON details in the body
+router.put('/update/:id', entreeController.updateOne); 
+
+//ID as JSON field
+router.delete('/delete', entreeController.deleteOne);  
+
+//ID as param 
+router.delete('/delete/:id', entreeController.deleteOne); 
 ~~~~
 
-## Additional Security-related Functionality
+
+## Additional Functionality
+* Added auto-capitalization of dish name string
+* Added regex validation on dish form submit
+* Added sorting of dishes table by section name and then price (ascending)
 * Added body payload limit of 100Kb for JSON object
 * Added rate limiting for users of 250 REST requests per hour
 * Added data sanitization against XSS
 * Added Mongo data sanitization
+
 
 ## Startup environment variables
 * Create in .env file the following variables
@@ -30,6 +49,8 @@ router.post('/web/delete', entreeController.web_page_DeleteOne);
 DB_CONNECTION=URL TO MONGO CLOUD HERE
 DB_NAME=restaurant_menu
 DB_COLLECTION=entrees
+//xss, sanitization, rate limit - see server.js
+DB_ENABLE_SECURITY_FUNCTIONS=false
 SERVER_PORT=3000
 ~~~~
 

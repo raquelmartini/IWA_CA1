@@ -34,7 +34,4 @@ router.delete('/delete', entreeController.deleteOne);
 //ID as param 
 router.delete('/delete/:id', entreeController.deleteOne); 
 
-//web page specific that returns  
-//router.post('/web/create', entreeController.web_page_CreateOne);
-
 module.exports = router;

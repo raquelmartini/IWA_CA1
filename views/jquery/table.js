@@ -191,14 +191,12 @@ function submitEntree() {
 function validateForm() {
     let name = document.forms["addEntreeForm"]["entree_name"].value;
     if (name.match("^([A-Za-z]{1}[A-Za-z0-9\s]{0,64})") == null) {
-        alert("Please enter a valid dish name with at least one character, starting with a letter");
         return false;
     }
 
     let price = document.forms["addEntreeForm"]["entree_price"].value;
     if (price.match("^(([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2}))$") == null) {
-        alert("Please enter a valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values");
-        return false;
+          return false;
     }
 
     return true;
