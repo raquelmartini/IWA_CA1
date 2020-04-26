@@ -5,7 +5,9 @@
 
 ## Issues
 * See Issues in GitHub
-
+* POSTMAN suddenly stopped working eventhough the browser can access the service
+[![CCT](https://www.cct.ie/wp-content/themes/hdcct/img/atoms/logo.jpg)](http://cct.ie)
+[![CCT](https://www.cct.ie/wp-content/themes/hdcct/img/atoms/logo.jpg)](http://cct.ie)
 
 ## Routes
 ~~~~
