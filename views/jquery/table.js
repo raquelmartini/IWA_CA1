@@ -25,7 +25,7 @@ function select_row() {
     });
 }
 
-function create_row() {
+function create_row(isVegetarian) {
 
     $.ajax({
         url: "/create",
@@ -35,8 +35,7 @@ function create_row() {
             price: $('#entree_price').val(),
             section: $('#entree_section').val(), 
             vegan: $('#entree_price').val(), 
-            vegan: $('#entree_vegan').val(),
-            vegetarian: $('#entree_vegetarian').val(),
+            vegetarian: isVegetarian,
             createdby: $('#entree_createdby').val()
         },
         cache: false,

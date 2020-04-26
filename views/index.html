@@ -31,7 +31,7 @@
                 document.forms[1].txtBillAmt.value = calculateBill('menuTable');
             });
             document.querySelector("#showVeg").addEventListener("click", function() {
-                highlightVegetarian('menuTable', this.checked);
+                  highlightVegetarian('menuTable', this.checked);
             });
         });
     </script>
@@ -257,12 +257,7 @@
 				<form enctype="application/json" id="addEntreeForm">
 					<div class="form-group">
 						<select class="form-control" id="entree_section" name="entree_section">
-              <!--              <option value=0>Yoy's Burgers</option>
-							<option value=1>Snack Attack</option>
-							<option value=2>Step to the Side</option>
-                            <option value=3>Signature Shakes</option>
-							<option value=4>Classic Shakes</option>	
-                            -->		
+                        <!-- Sections are now dynamically added in table.js method - jsonToDOM()  -->		
 						</select>
 					</div>
 					<div class="form-group">
@@ -272,7 +267,7 @@
 						<input class="form-control" type="text" id="entree_price" name="price" placeholder="Price" pattern="(\d{1,4}(\.\d{1,2})*)" title="A valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values" required>
 					</div>
                     <div class="input-group-text" style="width: 150px; background-color: white; margin-bottom: 10px; padding-top: 4px; padding-bottom: 4px;">
-                         <input type="checkbox" id="entree_vegetarian" value=true>
+                         <input type="checkbox" id="entree_vegetarian">
                         <label> Vegetarian</label><br>
   					</div>
                     <input type="hidden" id="entree_createdby" value="customer">
@@ -302,7 +297,8 @@
 
 <script>
 function submitEntree() {
-    create_row();
+    //problems accessing checkbox so added this code
+    create_row(document.getElementById("entree_vegetarian").checked);
 }
 </script>
   

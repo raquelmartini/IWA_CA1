@@ -28,7 +28,10 @@ function highlightVegetarian(idTable, bShowVeg) {
     var aTRs = oTBODY.getElementsByTagName('tr');
     // walk through each of the table rows and see if it has a 
     // "vegetarian" attribute on it.
+    
     for (i = 0; i < aTRs.length; i++) {
+        console.log(aTRs[i].getAttribute('vegetarian'));
+
         if (aTRs[i].getAttribute('vegetarian') == "true") {
             if (bShowVeg) {
                 aTRs[i].style.backgroundColor = "lightGreen";
