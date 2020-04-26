@@ -4,10 +4,21 @@
 
 
 ## Issues
-* See Issues in GitHub
-* POSTMAN suddenly stopped working eventhough the browser can access the service
-[![CCT](https://www.cct.ie/wp-content/themes/hdcct/img/atoms/logo.jpg)](http://cct.ie)
-[![CCT](https://www.cct.ie/wp-content/themes/hdcct/img/atoms/logo.jpg)](http://cct.ie)
+* All issues are tracked in GitHub
+
+## Environment Variables
+* Create in .env file the following variables
+~~~~
+//db
+DB_CONNECTION=URL TO MONGO CLOUD HERE
+DB_NAME=restaurant_menu
+DB_COLLECTION=entrees
+SERVER_PORT=3000
+
+//xss, sanitization, rate limit - see server.js
+DB_ENABLE_SECURITY_FUNCTIONS=false
+
+~~~~
 
 ## Routes
 ~~~~
@@ -34,27 +45,17 @@ router.delete('/delete', entreeController.deleteOne);
 router.delete('/delete/:id', entreeController.deleteOne); 
 ~~~~
 
-
 ## Additional Functionality
-* Added auto-capitalization of dish name string
-* Added regex validation on dish form submit
-* Added sorting of dishes table by section name and then price (ascending)
+* Added auto-capitalization of dish name string on submission
+* Added regex validation on dish form submission
+* Added client-side automatic sorting of dishes table by section name and then price (ascending)
 * Added body payload limit of 100Kb for JSON object
-* Added rate limiting for users of 250 REST requests per hour
+* Added rate limiting for users of 10000 REST requests per hour
 * Added data sanitization against XSS
 * Added Mongo data sanitization
 
 
-## Startup environment variables
-* Create in .env file the following variables
-~~~~
-DB_CONNECTION=URL TO MONGO CLOUD HERE
-DB_NAME=restaurant_menu
-DB_COLLECTION=entrees
-//xss, sanitization, rate limit - see server.js
-DB_ENABLE_SECURITY_FUNCTIONS=false
-SERVER_PORT=3000
-~~~~
+
 
 
 

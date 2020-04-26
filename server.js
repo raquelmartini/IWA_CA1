@@ -12,8 +12,9 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-const logger = require("morgan");
-const express = require("express");
+const logger = require('morgan');
+const express = require('express');
+const cors = require('cors');
 const http = require('http');
 const path = require('path');
 
@@ -25,6 +26,7 @@ const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const router = express();
+router.use(cors());
 router.use(express.static(path.resolve(__dirname, 'views'))); //We define the views folder as the one where all static content will be served
 router.use(express.urlencoded({extended: true})); //We allow the data sent from the client to be coming in as part of the URL in GET and POST requests
 //prevents DOS attacks by limiting the size of the body payload - see https://itnext.io/make-security-on-your-nodejs-api-the-priority-50da8dc71d68

@@ -5,9 +5,9 @@ tasks:
     command: mkdir -p data && mongod --dbpath data
 
   - name: Install routing database logging dependencies
-    command: npm install dotenv morgan express body-parser mongoose --save
+    command: npm install dotenv morgan express mongoose --save
 
-  - name: Install http file xml json xslt dependencies
+  - name: Install http file cors json dependencies
     command: npm install http cors path --save
 
   - name: Install security dependencies
