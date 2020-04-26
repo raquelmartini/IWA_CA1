@@ -218,8 +218,6 @@ function deleteDish() {
            
     }
 
-    console.log("deleting..."  + idArray);
-
     //only delete if something is selected
     if (checkedCount > 0) {
         $.ajax(
@@ -232,6 +230,9 @@ function deleteDish() {
                 cache: false,
                 success: setTimeout(draw_table, 1000)
             })
+    }
+    else{
+        alert("There are no selected rows to delete!");
     }
 }
 
