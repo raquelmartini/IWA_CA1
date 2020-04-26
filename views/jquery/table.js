@@ -30,10 +30,10 @@ function create_row(name, isVegetarian) {
     $.ajax({
         url: "/create",
         type: "POST",
-        data: { 
-            name: name, 
+        data: {
+            name: name,
             price: $('#entree_price').val(),
-            section: $('#entree_section').val(), 
+            section: $('#entree_section').val(),
             vegetarian: isVegetarian,
             createdby: $('#entree_createdby').val()
         },
@@ -58,7 +58,7 @@ function delete_row(id) {
     })
 }
 
-function removeAllChildren(cssSelector){
+function removeAllChildren(cssSelector) {
     let child = cssSelector.lastElementChild;
     while (child) {
         cssSelector.removeChild(child);
@@ -74,7 +74,7 @@ function removeAllChildren(cssSelector){
  */
 function jsonToDOM(cssSelectorParent, jsonEntreeArray) {
 
-    jsonEntreeArray.sort((a,b) => (a.section - b.section));
+    jsonEntreeArray.sort((a, b) => (a.section - b.section));
 
     let headingsArray = ["Select", "Item", "Price per item(EU)"];
     let sectionTitleArray = ["Yoy's Burgers", "Snack Attack", "Step to the Side", "Signature Shakes", "Classic Shakes"];
@@ -110,8 +110,7 @@ function jsonToDOM(cssSelectorParent, jsonEntreeArray) {
     let selectionParent = document.querySelector("#entree_section.form-control");
     removeAllChildren(selectionParent);
     let selectionIndex = 0;
-    for (let selectionTitle of sectionTitleArray)
-    {
+    for (let selectionTitle of sectionTitleArray) {
         let option = document.createElement("option");
         option.innerText = selectionTitle;
         option.setAttribute("value", selectionIndex++);
@@ -171,4 +170,51 @@ $(document).ready(function () {
     draw_table();
 })
 
+
+/**
+    * Validates and submits the dishes form
+    */
+function submitEntree() {
+    //added this because regular expressions in HTML did not prevent submission if invalid
+    if (validateForm()) {
+        console.log("valid.......");
+        //problems accessing checkbox so added this code
+        create_row(capitalizeFirstLetter(document.forms["addEntreeForm"]["entree_name"].value),
+            document.getElementById("entree_vegetarian").checked);
+    }
+}
+
+/**
+ * Validate the dishes form
+ * @returns true if valid
+ */
+function validateForm() {
+    let name = document.forms["addEntreeForm"]["entree_name"].value;
+    if (name.match("^([A-Za-z]{1}[A-Za-z0-9\s]{0,64})") == null) {
+        alert("Please enter a valid dish name with at least one character, starting with a letter");
+        return false;
+    }
+
+    let price = document.forms["addEntreeForm"]["entree_price"].value;
+    if (price.match("^(([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2}))$") == null) {
+        alert("Please enter a valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values");
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Capitalise the first letter of a string
+ * @returns String in first letter capitalized format
+ * @tutorial https://stackoverflow.com/questions/32589197/capitalize-first-letter-of-each-word-in-a-string-javascript/45620677
+ */
+function capitalizeFirstLetter(str) {
+    str = str.trim();
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+}
 
