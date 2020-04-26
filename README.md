@@ -48,6 +48,8 @@ router.delete('/delete/:id', entreeController.deleteOne);
 ~~~~
 
 ## Additional Functionality
+* Added deleteMany function to perform multiple deletes in one Ajax call
+* Added creationdate to Entree to record when the dish was ordered
 * Added auto-capitalization of dish name string on submission
 * Added regex validation on dish form submission
 * Added client-side automatic sorting of dishes table by section name and then price (ascending)
