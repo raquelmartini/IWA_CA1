@@ -33,17 +33,25 @@ exports.createOne = function (req, res) {
             section: req.body.section,
             price: req.body.price,
             vegetarian: req.body.vegetarian,
-            vegan: req.body.vegan,
             createdby: req.body.createdby
         }
     );
 
     db.getDB().collection(process.env.DB_COLLECTION).insertOne(newEntree, (err, result) => {
         if (err) {
-            const error = new Error("Failed to insert record");
-            error.status = 400;
+            //tested error code but it does not get called for some reason
+            /*
+            const error = new Error("Failed to update a record");
+            error.status = 503;
             next(error);
+            */
+            return res.status(503).json({
+                type: 'Database Error: Failed to create a record',
+                message: err.message
+            });
         } else {
+            //had some CORS errors from POSTMAN and browser early in the development and added this
+            res.header("Access-Control-Allow-Origin", "*");
             res.json(result);
         }
     });
@@ -59,18 +67,25 @@ exports.createOne = function (req, res) {
  */
 exports.readAll = function (req, res) {
     db.getDB().collection(process.env.DB_COLLECTION).find({})
-    .sort( { "section": 1, "price": -1 } )
-    .toArray((err, documents) => {
-        if (err) {
-                const error = new Error("Failed to update a record");
-                error.status = 400;
+        .sort({ "section": 1, "price": -1 })
+        .toArray((err, documents) => {
+            if (err) {
+                //tested error code but it does not get called for some reason
+                /*
+                const error = new Error("Failed to read records");
+                error.status = 503;
                 next(error);
-                //res.status(400).send({message: 'This is an error!'});
-        } else {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.json(documents);
-        }
-    });
+                */
+                return res.status(503).json({
+                    type: 'Database Error: Failed to read records',
+                    message: err.message
+                });
+            } else {
+                //had some CORS errors from POSTMAN and browser early in the development and added this
+                res.header("Access-Control-Allow-Origin", "*");
+                res.json(documents);
+            }
+        });
 }
 
 /**
@@ -84,15 +99,18 @@ exports.readOne = function (req, res) {
     const id = req.params.id;
     db.getDB().collection(process.env.DB_COLLECTION).find({ _id: db.getPrimaryKey(id) }).toArray((err, documents) => {
         if (err) {
-              //  const error = new Error("Failed to update a record");
-              //  error.status = 400;
-             //   next(error);
-                // res.status(400).send({message: 'This is an error!'});
-                 return res.status(503).json({
-                        type: 'MongoError',
-                        message: error.message
-                        });
+            //tested error code but it does not get called for some reason
+            /*
+            const error = new Error("Failed to read a record");
+            error.status = 503;
+            next(error);
+            */
+            return res.status(503).json({
+                type: 'Database Error: Failed to read a record',
+                message: err.message
+            });
         } else {
+             //had some CORS errors from POSTMAN and browser early in the development and added this
             res.header("Access-Control-Allow-Origin", "*");
             res.json(documents);
         }
@@ -115,15 +133,22 @@ exports.updateOne = function (req, res) {
                 section: req.body.section,
                 price: req.body.price,
                 vegetarian: req.body.vegetarian,
-                vegan: req.body.vegan,
                 createdby: req.body.createdby
             }
         }, { returnOriginal: false }, (err, result) => {
             if (err) {
+                //tested error code but it does not get called for some reason
+                /*
                 const error = new Error("Failed to update a record");
-                error.status = 400;
+                error.status = 503;
                 next(error);
+                */
+                return res.status(503).json({
+                    type: 'Database Error: Failed to update a record',
+                    message: err.message
+                });
             } else {
+                //had some CORS errors from POSTMAN and browser early in the development and added this
                 res.header("Access-Control-Allow-Origin", "*");
                 res.json(result);
             }
@@ -141,12 +166,23 @@ exports.deleteOne = function (req, res) {
     const id = req.params.id || req.body.id;
     db.getDB().collection(process.env.DB_COLLECTION).findOneAndDelete({ _id: db.getPrimaryKey(id) }, (err, result) => {
         if (err) {
+            //tested error code but it does not get called for some reason
+            /*
             const error = new Error("Failed to delete a record");
-            error.status = 400;
+            error.status = 503;
             next(error);
+            */
+            return res.status(503).json({
+                type: 'Database Error: Failed to delete a record',
+                message: err.message
+            });
         } else
+        {
             res.header("Access-Control-Allow-Origin", "*");
             res.json(result);
+        }
     });
 }
+
+
 

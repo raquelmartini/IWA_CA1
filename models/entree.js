@@ -21,6 +21,7 @@ const EntreeSchema = new mongoose.Schema({
             message: 'Name must be a valid string with length > 0!'
         }
     },
+    //["Yoy's Burgers", "Snack Attack", "Step to the Side", "Signature Shakes", "Classic Shakes"];
     section: { 
         type: Number,
         min: 0,
@@ -34,10 +35,6 @@ const EntreeSchema = new mongoose.Schema({
         max: 1000000
     },
     vegetarian:{ 
-        type: Boolean, 
-        default: false
-    },
-    vegan:{ 
         type: Boolean, 
         default: false
     },
