@@ -31,6 +31,9 @@ router.put('/update/:id', entreeController.updateOne);
 //ID as JSON field
 router.delete('/delete', entreeController.deleteOne);  
 
+//ID as JSON field
+router.delete('/delete/many', entreeController.deleteMany);  
+
 //ID as param 
 router.delete('/delete/:id', entreeController.deleteOne); 
 

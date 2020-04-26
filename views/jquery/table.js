@@ -1,4 +1,10 @@
 
+
+$(document).ready(function () {
+    draw_table();
+})
+
+
 function draw_table() {
     $("#results").empty();
     $.getJSONuncached = function (url) {
@@ -9,7 +15,7 @@ function draw_table() {
                 cache: false,
                 success: function (jsonArray) {
                     jsonToDOM("#results", jsonArray);
-                    select_row();
+                  //  select_row();
                 }
             });
     };
@@ -38,24 +44,8 @@ function create_row(name, isVegetarian) {
             createdby: $('#entree_createdby').val()
         },
         cache: false,
-        success: setTimeout(draw_table, 500)
+        success: setTimeout(draw_table, 1000)
     });
-}
-
-function delete_row(id) {
-    $("#delete").click(function () {
-        $.ajax(
-            {
-                url: "/delete",
-                type: "DELETE",
-                data:
-                {
-                    id: id
-                },
-                cache: false,
-                success: setTimeout(draw_table, 500)
-            })
-    })
 }
 
 function removeAllChildren(cssSelector) {
@@ -103,6 +93,7 @@ function jsonToDOM(cssSelectorParent, jsonEntreeArray) {
     //section
     let count = 0;
     let td = null;
+    let input = null;
     let itemNumber = 0;
     let currentSection = -1;
     let tbody = document.createElement("tbody");
@@ -136,7 +127,12 @@ function jsonToDOM(cssSelectorParent, jsonEntreeArray) {
 
         td = document.createElement("td");
         td.setAttribute("align", "center");
-        td.innerHTML = `<input name="item${itemNumber}" type="checkbox"/>`;
+        input = document.createElement("input");
+        input.type = "checkbox";
+        input.name = entree._id;
+        input.value = 1;
+        input.setAttribute("class", "dish-input-select");
+        td.appendChild(input);
         tr.appendChild(td);
 
         td = document.createElement("td");
@@ -166,18 +162,12 @@ function jsonToDOM(cssSelectorParent, jsonEntreeArray) {
     parent.appendChild(df);
 }
 
-$(document).ready(function () {
-    draw_table();
-})
-
-
 /**
     * Validates and submits the dishes form
     */
-function submitEntree() {
+function submitDish() {
     //added this because regular expressions in HTML did not prevent submission if invalid
     if (validateForm()) {
-        console.log("valid.......");
         //problems accessing checkbox so added this code
         create_row(capitalizeFirstLetter(document.forms["addEntreeForm"]["entree_name"].value),
             document.getElementById("entree_vegetarian").checked);
@@ -196,7 +186,7 @@ function validateForm() {
 
     let price = document.forms["addEntreeForm"]["entree_price"].value;
     if (price.match("^(([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2}))$") == null) {
-          return false;
+        return false;
     }
 
     return true;
@@ -214,5 +204,34 @@ function capitalizeFirstLetter(str) {
         splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
     return splitStr.join(' ');
+}
+
+function deleteDish() {
+    let checkedCount = 0;
+    let idArray = new Array();
+    let rows = document.querySelectorAll("input.dish-input-select");
+    for (let row of rows) {
+        if (row.checked){
+            checkedCount++;
+            idArray.push(row.name);
+        }
+           
+    }
+
+    console.log("deleting..."  + idArray);
+
+    //only delete if something is selected
+    if (checkedCount > 0) {
+        $.ajax(
+            {
+                url: "/delete/many",
+                type: "DELETE",
+                data: JSON.stringify(idArray),
+                contentType: "application/json",
+                processData: false,
+                cache: false,
+                success: setTimeout(draw_table, 1000)
+            })
+    }
 }
 

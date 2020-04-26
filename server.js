@@ -65,7 +65,7 @@ db.connect((err) => {
         console.log('unable to connect to database');
         process.exit();
     } else {
-        server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function() {
+        server.listen(process.env.SERVER_PORT || 3000, process.env.SERVER_IP || "0.0.0.0", function() {
             console.log('connected and listening on port ' + process.env.SERVER_PORT);
         });
     }

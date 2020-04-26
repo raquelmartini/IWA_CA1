@@ -185,4 +185,29 @@ exports.deleteOne = function (req, res) {
 }
 
 
+/**
+ * Deletes multiple rows in the collection matching the IDs specified in request body
+ * 
+ * @param req HTTP request body
+ * @param res HTTP response body 
+ * @returns Entree object or Error
+ */
+exports.deleteMany = function (req, res) {
 
+    if(req.body)
+    {
+        let ids = req.body.map(id => db.getPrimaryKey(id));
+        db.getDB().collection(process.env.DB_COLLECTION).deleteMany({_id: { $in: ids}}, (err, result) => {
+            if (err) {
+                return res.status(503).json({
+                    type: 'Database Error: Failed to delete a record',
+                    message: err.message
+                });
+            } else
+            {
+                res.header("Access-Control-Allow-Origin", "*");
+                res.json(result);
+            }
+        });
+    }
+}
