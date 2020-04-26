@@ -23,6 +23,6 @@ router.delete('/delete/:id', entreeController.deleteOne);
 router.get('/', entreeController.web_page_Get);  //y
 router.get('/web/read', entreeController.web_page_readAll); //y
 router.post('/web/create', entreeController.web_page_CreateOne);
-router.post('/web/delete', entreeController.web_page_DeleteOne); //y
+router.post('/web/delete', entreeController.web_page_DeleteOne); 
 
 module.exports = router;

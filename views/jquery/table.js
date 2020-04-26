@@ -8,7 +8,6 @@ function draw_table() {
                 type: 'GET',
                 cache: false,
                 success: function (jsonArray) {
-                    //$("#results").append(jsonArray);
                     convertJSONAndAddToDOM("#results", jsonArray);
                     select_row();
                 }
@@ -21,10 +20,10 @@ function select_row() {
     $("#menuTable tbody tr[id]").click(function () {
         $(".selected").removeClass("selected");
         $(this).addClass("selected");
-        var section = $(this).prevAll("tr").children("td[colspan='3']").length - 1;
         var id = $(this).attr("id");
+        console.log(this);
         delete_row(id);
-    })
+    });
 }
 
 function create_row() {
@@ -41,9 +40,9 @@ function create_row() {
             vegetarian: $('#entree_vegetarian').val(),
             createdby: $('#entree_createdby').val()
         },
-        success: setTimeout(draw_table, 1000)
+        cache: true,
+        success: setTimeout(draw_table, 500)
     });
-
 }
 
 function delete_row(id) {
@@ -57,7 +56,7 @@ function delete_row(id) {
                     id: id
                 },
                 cache: false,
-                success: setTimeout(draw_table, 1000)
+                success: setTimeout(draw_table, 500)
             })
     })
 }
@@ -71,6 +70,8 @@ function removeAllChildren(cssSelector){
 }
 
 function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
+
+    jsonEntreeArray.sort((a,b) => (a.section - b.section));
 
     let headingsArray = ["Select", "Item", "Price per item(EU)"];
     let sectionTitleArray = ["Yoy's Burgers", "Snack Attack", "Step to the Side", "Signature Shakes", "Classic Shakes"];
@@ -130,17 +131,21 @@ function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
         tr = document.createElement("tr");
         tr.setAttribute("id", entree._id);
         tr.setAttribute("vegetarian", entree.vegetarian ? "true" : "false");
+
         td = document.createElement("td");
         td.setAttribute("align", "center");
         td.innerHTML = `<input name="item${itemNumber}" type="checkbox"/>`;
         tr.appendChild(td);
+
         td = document.createElement("td");
         td.innerText = entree.name;
         tr.appendChild(td);
+
         td = document.createElement("td");
         td.setAttribute("align", "right");
         td.innerText = entree.price;
         tr.appendChild(td);
+
         tbody.appendChild(tr);
     }
 

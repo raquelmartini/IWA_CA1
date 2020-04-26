@@ -165,7 +165,6 @@ exports.web_page_CreateOne = function (req, res) {
             next(error);
         } else {
         db.getDB().collection(process.env.DB_COLLECTION).find({})
-            .sort( { "section": 1, "price": -1 } )
             .toArray((err, documents) => {
                 if (err) {
                     const error = new Error("Failed to read all records");
