@@ -280,10 +280,10 @@
 						</select>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" id="entree_name" name="name" placeholder="Name" pattern="[A-Za-z]{1}[A-Za-z0-9\s]{0,64}" title="A valid dish name with at least one character, starting with a letter" required>
+							<input class="form-control" type="text" id="entree_name" name="name" placeholder="Name" pattern="^([A-Za-z]{1}[A-Za-z0-9\s]{0,64})" title="A valid dish name with at least one character, starting with a letter" required>
 					</div>
 							<div class="form-group">
-								<input class="form-control" type="text" id="entree_price" name="price" placeholder="Price" pattern="([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2})" title="A valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values" required>
+								<input class="form-control" type="text" id="entree_price" name="price" placeholder="Price" pattern="^(([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2}))$" title="A valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values" required>
 					</div>
 								<div class="input-group-text"
 									style="border-style: none; background-color: white; margin-bottom: 10px; padding-top: 4px; padding-bottom: 4px;">
@@ -699,14 +699,14 @@
      */
 	function validateForm() {
         let name = document.forms["addEntreeForm"]["entree_name"].value;
-        if(name.match("[A-Za-z]{1}[A-Za-z0-9\s]{0,64}") == null)
+        if(name.match("^([A-Za-z]{1}[A-Za-z0-9\s]{0,64})") == null)
         {
             alert("Please enter a valid dish name with at least one character, starting with a letter");
             return false;
         }
 
         let price = document.forms["addEntreeForm"]["entree_price"].value;
-        if(price.match("([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2})") == null)
+        if(price.match("^(([1-9][0-9]{0,4})|([0-9][0-9]{0,4}\.[0-9]{1,2}))$") == null)
         {
             alert("Please enter a valid price (i.e. a number without a decimal point, or a number with no more than 2 decimal values");
             return false;
