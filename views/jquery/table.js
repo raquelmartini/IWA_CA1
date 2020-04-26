@@ -8,12 +8,12 @@ function draw_table() {
                 type: 'GET',
                 cache: false,
                 success: function (jsonArray) {
-                    convertJSONAndAddToDOM("#results", jsonArray);
+                    jsonToDOM("#results", jsonArray);
                     select_row();
                 }
             });
     };
-    $.getJSONuncached("/web/read")
+    $.getJSONuncached("/read")
 }
 
 function select_row() {
@@ -21,7 +21,6 @@ function select_row() {
         $(".selected").removeClass("selected");
         $(this).addClass("selected");
         var id = $(this).attr("id");
-        console.log(this);
         delete_row(id);
     });
 }
@@ -29,7 +28,7 @@ function select_row() {
 function create_row() {
 
     $.ajax({
-        url: "web/create",
+        url: "/create",
         type: "POST",
         data: { 
             name: $('#entree_name').val(), 
@@ -40,7 +39,7 @@ function create_row() {
             vegetarian: $('#entree_vegetarian').val(),
             createdby: $('#entree_createdby').val()
         },
-        cache: true,
+        cache: false,
         success: setTimeout(draw_table, 500)
     });
 }
@@ -49,8 +48,8 @@ function delete_row(id) {
     $("#delete").click(function () {
         $.ajax(
             {
-                url: "web/delete",
-                type: "POST",
+                url: "/delete",
+                type: "DELETE",
                 data:
                 {
                     id: id
@@ -69,7 +68,13 @@ function removeAllChildren(cssSelector){
     }
 }
 
-function convertJSONAndAddToDOM(cssSelectorParent, jsonEntreeArray) {
+/**
+ * Takes a array of JSON objects returned from the server API (read) and converts to a HTML table
+ * 
+ * @param cssSelectorParent CSS selector of the HTML element to append the table to
+ * @param jsonEntreeArray Array of JSON objects (entrees)
+ */
+function jsonToDOM(cssSelectorParent, jsonEntreeArray) {
 
     jsonEntreeArray.sort((a,b) => (a.section - b.section));
 

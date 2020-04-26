@@ -11,18 +11,30 @@
 const express = require('express');
 const router = express.Router();
 
-//generic CRUD from POSTMAN
 const entreeController = require('../controllers/entree-controller');
-router.post('/create', entreeController.createOne);
-router.get('/read', entreeController.readAll);
-router.get('/read/:id', entreeController.readOne);
-router.put('/update/:id', entreeController.updateOne);
-router.delete('/delete/:id', entreeController.deleteOne);
 
-//web CRUD 
-router.get('/', entreeController.web_page_Get);  //y
-router.get('/web/read', entreeController.web_page_readAll); //y
-router.post('/web/create', entreeController.web_page_CreateOne);
-router.post('/web/delete', entreeController.web_page_DeleteOne); 
+//load page
+router.get('/', entreeController.renderIndex);  
+
+//JSON body containing entree detauls
+router.post('/create', entreeController.createOne);
+
+//No param or JSON
+router.get('/read', entreeController.readAll);
+
+//ID as param 
+router.get('/read/:id', entreeController.readOne);
+
+//ID as param and JSON details in the body
+router.put('/update/:id', entreeController.updateOne); 
+
+//ID as JSON field
+router.delete('/delete', entreeController.deleteOne);  
+
+//ID as param 
+router.delete('/delete/:id', entreeController.deleteOne); 
+
+//web page specific that returns  
+//router.post('/web/create', entreeController.web_page_CreateOne);
 
 module.exports = router;

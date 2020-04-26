@@ -4,11 +4,11 @@ tasks:
   - name: Running MongoDB
     command: mkdir -p data && mongod --dbpath data
 
-  - name: Install core dependencies
-    command: npm install dotenv morgan cors http express body-parser mongoose --save
+  - name: Install routing database logging dependencies
+    command: npm install dotenv morgan express body-parser mongoose --save
 
   - name: Install http file xml json xslt dependencies
-    command: npm install http path fs xslt-processor xml2js --save
+    command: npm install http cors path --save
 
   - name: Install security dependencies
     command: npm install express-rate-limit express-mongo-sanitize xss-clean --save
