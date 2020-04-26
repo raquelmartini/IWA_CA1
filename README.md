@@ -58,8 +58,3 @@ router.delete('/delete/:id', entreeController.deleteOne);
 * Added data sanitization against XSS
 * Added Mongo data sanitization
 
-
-
-
-
-
